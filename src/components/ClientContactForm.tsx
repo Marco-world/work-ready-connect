@@ -13,25 +13,69 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, User } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  mobile: z.string().min(10, { message: "Please enter a valid mobile number." }),
-  serviceNeeded: z.string().min(5, { message: "Please describe the service you need." }),
-  location: z.string().min(2, { message: "Please enter your location." }),
+  phonePrefix: z.string().min(1, { message: "Please select a phone prefix." }),
+  mobile: z.string().min(7, { message: "Please enter a valid mobile number." }),
+  serviceNeeded: z.string().min(1, { message: "Please select a service." }),
+  location: z.string().min(1, { message: "Please select your location." }),
+  additionalDetails: z.string().optional(),
 });
+
+const phonePrefix = [
+  { value: "+1", label: "+1 (US/Canada)" },
+  { value: "+44", label: "+44 (UK)" },
+  { value: "+33", label: "+33 (France)" },
+  { value: "+49", label: "+49 (Germany)" },
+  { value: "+91", label: "+91 (India)" },
+  { value: "+86", label: "+86 (China)" },
+  { value: "+81", label: "+81 (Japan)" },
+  { value: "+61", label: "+61 (Australia)" },
+];
+
+const services = [
+  { value: "nursing", label: "Nursing Care" },
+  { value: "childcare", label: "Childcare" },
+  { value: "eldercare", label: "Elder Care" },
+  { value: "housekeeping", label: "Housekeeping" },
+  { value: "companion", label: "Companion Care" },
+  { value: "physical-therapy", label: "Physical Therapy" },
+  { value: "overnight", label: "Overnight Care" },
+  { value: "respite", label: "Respite Care" },
+];
+
+const locations = [
+  { value: "downtown", label: "Downtown" },
+  { value: "north-side", label: "North Side" },
+  { value: "south-side", label: "South Side" },
+  { value: "east-side", label: "East Side" },
+  { value: "west-side", label: "West Side" },
+  { value: "suburbs", label: "Suburbs" },
+  { value: "uptown", label: "Uptown" },
+  { value: "midtown", label: "Midtown" },
+];
 
 const ClientContactForm = () => {
   const form = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: "",
+      phonePrefix: "",
       mobile: "",
       serviceNeeded: "",
       location: "",
+      additionalDetails: "",
     },
   });
 
@@ -44,7 +88,7 @@ const ClientContactForm = () => {
   }
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md bg-white/95 backdrop-blur-sm">
       <CardHeader className="text-center">
         <CardTitle className="text-xl flex items-center justify-center gap-2">
           <User className="h-5 w-5 text-primary" />
@@ -70,29 +114,111 @@ const ClientContactForm = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="mobile"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Mobile Number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. +1 234 567 8900" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            
+            <div className="grid grid-cols-5 gap-2">
+              <div className="col-span-2">
+                <FormField
+                  control={form.control}
+                  name="phonePrefix"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Prefix</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {phonePrefix.map((prefix) => (
+                            <SelectItem key={prefix.value} value={prefix.value}>
+                              {prefix.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="col-span-3">
+                <FormField
+                  control={form.control}
+                  name="mobile"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Mobile Number</FormLabel>
+                      <FormControl>
+                        <Input placeholder="1234567890" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
             <FormField
               control={form.control}
               name="serviceNeeded"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Service Needed</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {services.map((service) => (
+                        <SelectItem key={service.value} value={service.value}>
+                          {service.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your area" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {locations.map((location) => (
+                        <SelectItem key={location.value} value={location.value}>
+                          {location.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="additionalDetails"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Additional Details (Optional)</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="e.g. Need a nurse for elderly care, 3 days a week..."
-                      className="resize-none"
+                      placeholder="Any specific requirements or details..."
+                      className="resize-none h-20"
                       {...field}
                     />
                   </FormControl>
@@ -100,19 +226,7 @@ const ClientContactForm = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Location</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. Downtown, City Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <Button type="submit" className="w-full hover-scale">
               <Phone className="mr-2 h-4 w-4" />
               Request Care Services
