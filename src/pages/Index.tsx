@@ -4,28 +4,49 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Shield, Users, Briefcase, Star } from "lucide-react";
 import { candidates } from "@/data/candidates";
 import CandidateCard from "@/components/CandidateCard";
+import ClientContactForm from "@/components/ClientContactForm";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   return (
     <div className="flex flex-col">
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="py-20 md:py-32 text-center bg-gradient-to-b from-primary/5 to-background">
-          <div className="container">
-            <div className="animate-fade-in">
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-                Connect with Caring Professionals
-              </h1>
-              <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed">
-                Find trusted, compassionate caregivers for your family's most important needs. From nursing and childcare to housekeeping and elder care - we connect you with verified professionals who truly care.
-              </p>
-              <div className="mt-8 flex justify-center gap-4">
-                <Button size="lg" asChild className="hover-scale">
-                  <Link to="/talent">Find Caregivers <Heart className="ml-2 h-5 w-5" /></Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="hover-scale">
-                  <Link to="/apply">Join Our Team</Link>
-                </Button>
+        {/* Hero Section with Background Image */}
+        <section className="relative py-20 md:py-32 text-center bg-gradient-to-b from-primary/5 to-background overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 z-0 opacity-10"
+            style={{
+              backgroundImage: "url('https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          />
+          
+          {/* Content */}
+          <div className="container relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="animate-fade-in">
+                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+                  Connect with Caring Professionals
+                </h1>
+                <p className="mt-4 max-w-2xl mx-auto lg:mx-0 text-lg text-muted-foreground leading-relaxed">
+                  Find trusted, compassionate caregivers for your family's most important needs. From nursing and childcare to housekeeping and elder care - we connect you with verified professionals who truly care.
+                </p>
+                <div className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                  <Button size="lg" asChild className="hover-scale">
+                    <Link to="/talent">Find Caregivers <Heart className="ml-2 h-5 w-5" /></Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild className="hover-scale">
+                    <Link to="/apply">Join Our Team</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Client Contact Form */}
+              <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <ClientContactForm />
               </div>
             </div>
           </div>
@@ -119,6 +140,9 @@ const Index = () => {
         </section>
 
       </main>
+      
+      {/* WhatsApp Button */}
+      <WhatsAppButton />
     </div>
   );
 };
