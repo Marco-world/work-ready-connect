@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Shield, Users, Briefcase, Star, Phone } from "lucide-react";
@@ -30,18 +29,50 @@ const Index = () => {
           <div className="container relative z-10">
             <div className="animate-fade-in">
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg mb-6">
-                Connect with Caring Professionals
+                Connecting Hearts, Homes & Healthcare
               </h1>
-              <p className="mt-4 max-w-3xl mx-auto text-xl text-white/95 leading-relaxed drop-shadow mb-8">
-                Find trusted, compassionate caregivers for your family's most important needs. From nursing and childcare to housekeeping and elder care - we connect you with verified professionals who truly care.
+              <p className="mt-4 max-w-3xl mx-auto text-xl text-white/95 leading-relaxed drop-shadow mb-12">
+                Whether you need compassionate care for your family or want to build a rewarding career in caregiving, 
+                CareLink brings together trusted professionals and loving families.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button size="lg" asChild className="hover-scale text-lg px-8 py-4">
-                  <Link to="/talent">Find Caregivers <Heart className="ml-2 h-5 w-5" /></Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="hover-scale bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 text-lg px-8 py-4">
-                  <Link to="/apply">Join Our Team</Link>
-                </Button>
+              
+              {/* Two distinct user paths */}
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                {/* For Families */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 text-left">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Heart className="h-8 w-8 text-emerald-600" />
+                    <h3 className="text-2xl font-bold text-emerald-900">For Families</h3>
+                  </div>
+                  <p className="text-emerald-800 mb-6">
+                    Find verified, compassionate caregivers who will treat your loved ones like family. 
+                    From childcare to senior support, we have trusted professionals ready to help.
+                  </p>
+                  <Button size="lg" asChild className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
+                    <Link to="/talent">
+                      <Heart className="mr-2 h-5 w-5" />
+                      Find Care for Your Family
+                    </Link>
+                  </Button>
+                </div>
+                
+                {/* For Professionals */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 text-left">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Briefcase className="h-8 w-8 text-primary" />
+                    <h3 className="text-2xl font-bold text-primary">For Caregivers</h3>
+                  </div>
+                  <p className="text-primary-foreground/80 mb-6">
+                    Join our professional network and build a meaningful career in caregiving. 
+                    Work with premium families who value your expertise and dedication.
+                  </p>
+                  <Button size="lg" asChild className="w-full bg-primary hover:bg-primary/90">
+                    <Link to="/apply">
+                      <Briefcase className="mr-2 h-5 w-5" />
+                      Start Your Career Journey
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -97,11 +128,11 @@ const Index = () => {
         </section>
 
         {/* Care Categories Section with Enhanced Images */}
-        <section className="bg-gradient-to-r from-primary/5 to-secondary/30 py-20">
+        <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-20">
           <div className="container">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold">Care Services We Provide</h2>
-              <p className="mt-2 text-muted-foreground">Professional care services tailored to your family's needs.</p>
+              <h2 className="text-3xl font-bold text-emerald-900">Care Services for Every Family Need</h2>
+              <p className="mt-2 text-emerald-700">Professional care services tailored to your family's unique situation.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="text-center p-6 bg-background rounded-lg shadow-lg hover-scale relative overflow-hidden group">
@@ -169,13 +200,13 @@ const Index = () => {
         </section>
 
         {/* Client Contact Form Section */}
-        <section className="bg-gradient-to-b from-primary/10 to-background py-20">
+        <section className="bg-gradient-to-b from-emerald-50/30 to-background py-20">
           <div className="container">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-emerald-900">
                 Ready to Find Your Perfect Caregiver?
               </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              <p className="text-emerald-700 text-lg max-w-2xl mx-auto">
                 Join thousands of families who trust CareLink for their most important care needs. 
                 Get matched with verified, compassionate professionals today.
               </p>
@@ -185,22 +216,28 @@ const Index = () => {
         </section>
 
         {/* Bottom CTA Section */}
-        <section className="bg-primary py-20">
+        <section className="bg-gradient-to-r from-primary to-emerald-600 py-20">
           <div className="container text-center">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Join Our Community of Care
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Two Paths, One Community of Care
               </h2>
-              <p className="text-primary-foreground/90 text-lg mb-8">
-                Whether you're looking for care or wanting to provide it, CareLink connects hearts and homes. 
-                Start your journey with us today.
+              <p className="text-white/90 text-lg mb-8">
+                Whether you're seeking care or providing it, CareLink connects hearts and homes with purpose. 
+                Join our trusted community today.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button size="lg" variant="secondary" asChild className="hover-scale">
-                  <Link to="/talent">Browse Caregivers <Heart className="ml-2 h-5 w-5" /></Link>
+                <Button size="lg" variant="secondary" asChild className="hover-scale bg-emerald-600 hover:bg-emerald-700 text-white border-0">
+                  <Link to="/talent">
+                    <Heart className="ml-2 h-5 w-5" />
+                    Find Family Care
+                  </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="hover-scale border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                  <Link to="/apply">Become a Caregiver</Link>
+                <Button size="lg" variant="outline" asChild className="hover-scale border-white/30 text-white hover:bg-white/10 bg-white/5">
+                  <Link to="/apply">
+                    <Briefcase className="ml-2 h-5 w-5" />
+                    Build Your Career
+                  </Link>
                 </Button>
               </div>
             </div>

@@ -15,12 +15,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart } from "lucide-react";
+import { Briefcase, Star, Award, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const formSchema = z.object({
   fullName: z.string().optional(),
   email: z.string().optional(),
+  phoneNumber: z.string().min(1, "Phone number is required"),
   headline: z.string().optional(),
   skills: z.string().optional(),
   bio: z.string().optional(),
@@ -32,6 +33,7 @@ const Apply = () => {
     defaultValues: {
       fullName: "",
       email: "",
+      phoneNumber: "",
       headline: "",
       skills: "",
       bio: "",
@@ -45,6 +47,7 @@ const Apply = () => {
         .insert({
           full_name: values.fullName || '',
           email: values.email || '',
+          phone_number: values.phoneNumber,
           headline: values.headline || '',
           skills: values.skills || '',
           bio: values.bio || '',
@@ -52,111 +55,162 @@ const Apply = () => {
 
       if (error) throw error;
 
-      console.log("Application Submitted:", values);
-      toast.success("Application Submitted!", {
-        description: "Thank you for wanting to join our caring community. We will be in touch shortly.",
+      console.log("Professional Application Submitted:", values);
+      toast.success("Application Submitted Successfully!", {
+        description: "Welcome to the CareLink professional community. Our team will review your application and contact you within 24-48 hours.",
       });
       form.reset();
     } catch (error) {
       console.error("Error submitting application:", error);
-      toast.error("Failed to submit application", {
-        description: "Please try again later.",
+      toast.error("Application submission failed", {
+        description: "Please try again or contact our support team.",
       });
     }
   }
 
   return (
-    <div className="container py-12 flex justify-center">
-      <Card className="w-full max-w-2xl animate-fade-in">
-        <CardHeader className="text-center bg-gradient-to-r from-primary/5 to-transparent">
-          <CardTitle className="text-2xl flex items-center justify-center gap-2">
-            <Heart className="h-6 w-6 text-primary" />
-            Join Our Caring Community
-          </CardTitle>
-          <CardDescription>
-            Are you passionate about caring for others? Join our team of dedicated professionals and make a meaningful difference in families' lives.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="p-6">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. Maria Rodriguez" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. maria@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="headline"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Professional Role</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. Certified Registered Nurse, Professional Nanny" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="skills"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Skills & Certifications</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. Patient Care, CPR Certified, Child Development" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Why do you love caring for others?</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Tell us about your passion for caregiving and what drives you to help families..."
-                        className="resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full hover-scale" size="lg">
-                <Heart className="mr-2 h-5 w-5" />
-                Join Our Team
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/10">
+      <div className="container py-12 flex justify-center">
+        <Card className="w-full max-w-2xl animate-fade-in shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+          <CardHeader className="text-center bg-gradient-to-r from-primary/10 to-primary/5 rounded-t-lg">
+            <CardTitle className="text-3xl flex items-center justify-center gap-3 text-primary">
+              <Briefcase className="h-8 w-8" />
+              Professional Caregiver Application
+            </CardTitle>
+            <CardDescription className="text-lg text-muted-foreground mt-4">
+              Join our elite network of healthcare professionals and make a meaningful impact in families' lives. 
+              Build your career with CareLink's trusted community.
+            </CardDescription>
+          </CardHeader>
+          
+          <CardContent className="p-8">
+            {/* Professional Benefits Section */}
+            <div className="mb-8 grid md:grid-cols-3 gap-4 text-center">
+              <div className="p-4 bg-primary/5 rounded-lg">
+                <Star className="h-6 w-6 text-primary mx-auto mb-2" />
+                <h4 className="font-semibold text-sm">Premium Clients</h4>
+                <p className="text-xs text-muted-foreground">Work with verified families</p>
+              </div>
+              <div className="p-4 bg-primary/5 rounded-lg">
+                <Award className="h-6 w-6 text-primary mx-auto mb-2" />
+                <h4 className="font-semibold text-sm">Career Growth</h4>
+                <p className="text-xs text-muted-foreground">Professional development</p>
+              </div>
+              <div className="p-4 bg-primary/5 rounded-lg">
+                <Briefcase className="h-6 w-6 text-primary mx-auto mb-2" />
+                <h4 className="font-semibold text-sm">Flexible Work</h4>
+                <p className="text-xs text-muted-foreground">Choose your schedule</p>
+              </div>
+            </div>
+
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary font-semibold">Professional Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Maria Rodriguez, RN" className="border-primary/20 focus:border-primary" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-primary font-semibold">Email Address</FormLabel>
+                        <FormControl>
+                          <Input placeholder="your.email@example.com" className="border-primary/20 focus:border-primary" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-primary font-semibold flex items-center gap-1">
+                          <Phone className="h-4 w-4" />
+                          Phone Number *
+                        </FormLabel>
+                        <FormControl>
+                          <Input placeholder="+1 (555) 123-4567" className="border-primary/20 focus:border-primary" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                <FormField
+                  control={form.control}
+                  name="headline"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary font-semibold">Professional Title & Credentials</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Certified Registered Nurse, Licensed Childcare Provider" className="border-primary/20 focus:border-primary" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="skills"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary font-semibold">Core Competencies & Certifications</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Patient Care, CPR/First Aid, Medication Management, Elder Care" className="border-primary/20 focus:border-primary" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="bio"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary font-semibold">Professional Philosophy & Experience</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Share your professional approach to caregiving, years of experience, and what motivates you to excel in healthcare..."
+                          className="resize-none border-primary/20 focus:border-primary h-32"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <Button type="submit" className="w-full hover-scale bg-primary hover:bg-primary/90 text-white" size="lg">
+                  <Briefcase className="mr-2 h-5 w-5" />
+                  Submit Professional Application
+                </Button>
+                
+                <p className="text-xs text-center text-muted-foreground">
+                  By submitting this application, you agree to our professional standards and background verification process.
+                </p>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

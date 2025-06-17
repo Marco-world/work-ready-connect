@@ -1,24 +1,143 @@
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Heart } from "lucide-react";
+import { Menu, Heart, Users, Briefcase } from "lucide-react";
 
 const Header = () => {
-  const navLinks = [
-    { to: "/", label: "Home" },
-    { to: "/talent", label: "Find Caregivers" },
-  ];
+  const location = useLocation();
+  const isApplicantFlow = location.pathname === "/apply";
+  const isClientFlow = location.pathname === "/talent";
+
+  // Different nav links based on user flow
+  const getNavLinks = () => {
+    if (isApplicantFlow) {
+      return [
+        { to: "/", label: "Home" },
+        { to: "/apply", label: "Caregiver Application" },
+      ];
+    }
+    if (isClientFlow) {
+      return [
+        { to: "/", label: "Home" },
+        { to: "/talent", label: "Browse Caregivers" },
+      ];
+    }
+    return [
+      { to: "/", label: "Home" },
+      { to: "/talent", label: "Find Care" },
+    ];
+  };
+
+  const navLinks = getNavLinks();
+
+  // Dynamic styling based on user flow
+  const getHeaderStyle = () => {
+    if (isApplicantFlow) {
+      return "bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-primary/10";
+    }
+    if (isClientFlow) {
+      return "bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-emerald-500/10";
+    }
+    return "bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-primary/10";
+  };
+
+  const getActionButtons = () => {
+    if (isApplicantFlow) {
+      return (
+        <div className="hidden md:flex items-center gap-4">
+          <Button variant="outline" asChild className="hover-scale border-primary text-primary hover:bg-primary/10">
+            <Link to="/">
+              <Users className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
+    }
+    if (isClientFlow) {
+      return (
+        <div className="hidden md:flex items-center gap-4">
+          <Button variant="outline" asChild className="hover-scale border-emerald-600 text-emerald-600 hover:bg-emerald-50">
+            <Link to="/">
+              <Heart className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
+    }
+    return (
+      <div className="hidden md:flex items-center gap-4">
+        <Button variant="outline" asChild className="hover-scale border-emerald-600 text-emerald-600 hover:bg-emerald-50">
+          <Link to="/talent">
+            <Heart className="mr-2 h-4 w-4" />
+            Find Care
+          </Link>
+        </Button>
+        <Button asChild className="hover-scale bg-primary hover:bg-primary/90">
+          <Link to="/apply">
+            <Briefcase className="mr-2 h-4 w-4" />
+            Join Our Team
+          </Link>
+        </Button>
+      </div>
+    );
+  };
+
+  const getMobileButtons = () => {
+    if (isApplicantFlow) {
+      return (
+        <div className="flex flex-col gap-4">
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Users className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
+    }
+    if (isClientFlow) {
+      return (
+        <div className="flex flex-col gap-4">
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Heart className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
+    }
+    return (
+      <div className="flex flex-col gap-4">
+        <Button variant="outline" asChild>
+          <Link to="/talent">Find Care</Link>
+        </Button>
+        <Button asChild>
+          <Link to="/apply">Join Our Team</Link>
+        </Button>
+      </div>
+    );
+  };
 
   return (
-    <header className="bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-primary/10">
+    <header className={getHeaderStyle()}>
       <div className="container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2 font-bold text-lg hover-scale">
-          <Heart className="h-6 w-6 text-primary" />
-          <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+          <Heart className={`h-6 w-6 ${isClientFlow ? 'text-emerald-600' : 'text-primary'}`} />
+          <span className={`bg-gradient-to-r ${isClientFlow ? 'from-emerald-600 to-emerald-500' : 'from-primary to-primary/80'} bg-clip-text text-transparent`}>
             CareLink
           </span>
+          {isApplicantFlow && (
+            <span className="text-sm text-muted-foreground ml-2">Professional Portal</span>
+          )}
+          {isClientFlow && (
+            <span className="text-sm text-muted-foreground ml-2">Family Portal</span>
+          )}
         </Link>
+        
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <NavLink
@@ -32,14 +151,9 @@ const Header = () => {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="outline" asChild className="hover-scale">
-            <Link to="/apply">Join Our Team</Link>
-          </Button>
-          <Button asChild className="hover-scale">
-            <Link to="/apply">Apply Now</Link>
-          </Button>
-        </div>
+        
+        {getActionButtons()}
+        
         <div className="md:hidden">
           <Sheet>
             <SheetTrigger asChild>
@@ -50,8 +164,8 @@ const Header = () => {
             <SheetContent side="right">
               <div className="flex flex-col gap-6 p-6">
                 <Link to="/" className="flex items-center gap-2 font-bold text-lg">
-                   <Heart className="h-6 w-6 text-primary" />
-                   <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                   <Heart className={`h-6 w-6 ${isClientFlow ? 'text-emerald-600' : 'text-primary'}`} />
+                   <span className={`bg-gradient-to-r ${isClientFlow ? 'from-emerald-600 to-emerald-500' : 'from-primary to-primary/80'} bg-clip-text text-transparent`}>
                      CareLink
                    </span>
                 </Link>
@@ -68,14 +182,7 @@ const Header = () => {
                     </NavLink>
                   ))}
                 </nav>
-                 <div className="flex flex-col gap-4">
-                    <Button variant="outline" asChild>
-                        <Link to="/apply">Join Our Team</Link>
-                    </Button>
-                    <Button asChild>
-                        <Link to="/apply">Apply Now</Link>
-                    </Button>
-                </div>
+                {getMobileButtons()}
               </div>
             </SheetContent>
           </Sheet>
