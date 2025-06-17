@@ -1,3 +1,4 @@
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,14 +16,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, { message: "Full name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  headline: z.string().min(5, { message: "Headline must be at least 5 characters." }),
-  skills: z.string().min(2, { message: "Please list at least one skill." }),
-  portfolioUrl: z.string().url({ message: "Please enter a valid URL." }).optional().or(z.literal('')),
-  bio: z.string().min(20, { message: "Bio must be at least 20 characters." }),
+  fullName: z.string().optional(),
+  email: z.string().optional(),
+  headline: z.string().optional(),
+  skills: z.string().optional(),
+  bio: z.string().optional(),
 });
 
 const Apply = () => {
@@ -33,17 +34,35 @@ const Apply = () => {
       email: "",
       headline: "",
       skills: "",
-      portfolioUrl: "",
       bio: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Application Submitted:", values);
-    toast.success("Application Submitted!", {
-      description: "Thank you for wanting to join our caring community. We will be in touch shortly.",
-    });
-    form.reset();
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const { error } = await supabase
+        .from('applicant_submissions')
+        .insert({
+          full_name: values.fullName || '',
+          email: values.email || '',
+          headline: values.headline || '',
+          skills: values.skills || '',
+          bio: values.bio || '',
+        });
+
+      if (error) throw error;
+
+      console.log("Application Submitted:", values);
+      toast.success("Application Submitted!", {
+        description: "Thank you for wanting to join our caring community. We will be in touch shortly.",
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      toast.error("Failed to submit application", {
+        description: "Please try again later.",
+      });
+    }
   }
 
   return (
@@ -108,19 +127,6 @@ const Apply = () => {
                     <FormLabel>Skills & Certifications</FormLabel>
                     <FormControl>
                       <Input placeholder="e.g. Patient Care, CPR Certified, Child Development" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="portfolioUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Professional Profile / References</FormLabel>
-                    <FormControl>
-                      <Input placeholder="https://linkedin.com/in/yourprofile" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -9,13 +9,206 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      applicant_submissions: {
+        Row: {
+          bio: string
+          created_at: string | null
+          email: string
+          full_name: string
+          headline: string
+          id: string
+          notes: string | null
+          portfolio_url: string | null
+          skills: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio: string
+          created_at?: string | null
+          email: string
+          full_name: string
+          headline: string
+          id?: string
+          notes?: string | null
+          portfolio_url?: string | null
+          skills: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string
+          created_at?: string | null
+          email?: string
+          full_name?: string
+          headline?: string
+          id?: string
+          notes?: string | null
+          portfolio_url?: string | null
+          skills?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      caregiver_skills: {
+        Row: {
+          caregiver_id: string | null
+          id: string
+          skill_id: string | null
+        }
+        Insert: {
+          caregiver_id?: string | null
+          id?: string
+          skill_id?: string | null
+        }
+        Update: {
+          caregiver_id?: string | null
+          id?: string
+          skill_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "caregiver_skills_caregiver_id_fkey"
+            columns: ["caregiver_id"]
+            isOneToOne: false
+            referencedRelation: "caregivers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "caregiver_skills_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      caregivers: {
+        Row: {
+          availability: string | null
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          experience: string | null
+          headline: string
+          id: string
+          location: string
+          name: string
+          portfolio_url: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          availability?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          experience?: string | null
+          headline: string
+          id?: string
+          location: string
+          name: string
+          portfolio_url?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          availability?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          experience?: string | null
+          headline?: string
+          id?: string
+          location?: string
+          name?: string
+          portfolio_url?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      client_requests: {
+        Row: {
+          additional_details: string | null
+          assigned_caregiver_id: string | null
+          created_at: string | null
+          id: string
+          location: string
+          mobile: string
+          name: string
+          notes: string | null
+          phone_prefix: string
+          service_needed: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          additional_details?: string | null
+          assigned_caregiver_id?: string | null
+          created_at?: string | null
+          id?: string
+          location: string
+          mobile: string
+          name: string
+          notes?: string | null
+          phone_prefix: string
+          service_needed: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          additional_details?: string | null
+          assigned_caregiver_id?: string | null
+          created_at?: string | null
+          id?: string
+          location?: string
+          mobile?: string
+          name?: string
+          notes?: string | null
+          phone_prefix?: string
+          service_needed?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_requests_assigned_caregiver_id_fkey"
+            columns: ["assigned_caregiver_id"]
+            isOneToOne: false
+            referencedRelation: "caregivers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      skills: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      link_caregiver_skills: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

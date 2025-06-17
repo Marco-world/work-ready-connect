@@ -23,13 +23,14 @@ import {
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  name: z.string().optional(),
   phonePrefix: z.string().min(1, { message: "Please select a phone prefix." }),
   mobile: z.string().min(7, { message: "Please enter a valid mobile number." }),
-  serviceNeeded: z.string().min(1, { message: "Please select a service." }),
-  location: z.string().min(1, { message: "Please select your country." }),
+  serviceNeeded: z.string().optional(),
+  location: z.string().optional(),
   additionalDetails: z.string().optional(),
 });
 
@@ -105,17 +106,37 @@ const ClientContactForm = () => {
       phonePrefix: "+1",
       mobile: "",
       serviceNeeded: "",
-      location: "us",
+      location: "",
       additionalDetails: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof contactSchema>) {
-    console.log("Client Contact Request:", values);
-    toast.success("Contact Request Received!", {
-      description: "Thank you for your interest. We'll connect you with the right caregiver soon.",
-    });
-    form.reset();
+  async function onSubmit(values: z.infer<typeof contactSchema>) {
+    try {
+      const { error } = await supabase
+        .from('client_requests')
+        .insert({
+          name: values.name || '',
+          phone_prefix: values.phonePrefix,
+          mobile: values.mobile,
+          service_needed: values.serviceNeeded || '',
+          location: values.location || '',
+          additional_details: values.additionalDetails || '',
+        });
+
+      if (error) throw error;
+
+      console.log("Client Contact Request:", values);
+      toast.success("Contact Request Received!", {
+        description: "Thank you for your interest. We'll connect you with the right caregiver soon.",
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting contact request:", error);
+      toast.error("Failed to submit request", {
+        description: "Please try again later.",
+      });
+    }
   }
 
   return (
@@ -153,7 +174,7 @@ const ClientContactForm = () => {
                   name="phonePrefix"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base font-semibold">Prefix</FormLabel>
+                      <FormLabel className="text-base font-semibold">Prefix *</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-12">
@@ -179,7 +200,7 @@ const ClientContactForm = () => {
                   name="mobile"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base font-semibold">Mobile Number</FormLabel>
+                      <FormLabel className="text-base font-semibold">Mobile Number *</FormLabel>
                       <FormControl>
                         <Input placeholder="1234567890" className="h-12 text-base" {...field} />
                       </FormControl>
