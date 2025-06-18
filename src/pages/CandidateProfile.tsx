@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MapPin, Clock, Users, Heart } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Users, MessageCircle } from "lucide-react";
 
 const CandidateProfile = () => {
   const { id } = useParams();
@@ -26,6 +26,14 @@ const CandidateProfile = () => {
       </div>
     );
   }
+
+  // WhatsApp contact function
+  const handleWhatsAppContact = () => {
+    const whatsappNumber = "+1234567890"; // Replace with your actual WhatsApp number
+    const message = encodeURIComponent(`Hi! I'm interested in connecting with ${candidate.name} for care services. Can you help me get in touch?`);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50/50 via-background to-emerald-100/30">
@@ -231,16 +239,14 @@ const CandidateProfile = () => {
         {/* Contact Actions */}
         <div className="mt-8 p-6 bg-emerald-50 rounded-lg border border-emerald-100 text-center">
           <h3 className="text-xl font-bold text-emerald-900 mb-4">Ready to connect with {candidate.name}?</h3>
-          <p className="text-emerald-700 mb-6">Get in touch to discuss your family's needs and schedule an interview.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-              <Heart className="mr-2 h-4 w-4" />
-              Contact {candidate.name}
-            </Button>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-50">
-              Save to Favorites
-            </Button>
-          </div>
+          <p className="text-emerald-700 mb-6">Get in touch via WhatsApp to discuss your family's needs and schedule an interview.</p>
+          <Button 
+            onClick={handleWhatsAppContact}
+            className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 text-lg"
+          >
+            <MessageCircle className="mr-2 h-5 w-5" />
+            Contact via WhatsApp
+          </Button>
         </div>
       </div>
     </div>
