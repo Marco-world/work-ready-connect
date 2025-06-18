@@ -11,7 +11,21 @@ interface CandidateCardProps {
   candidate: Candidate;
 }
 
+// Standardized skills list
+const STANDARDIZED_SKILLS = [
+  "Cleaning", "Washing", "Ironing", "Baby Sitting", "New Born Care",
+  "Decorating", "Housekeeping", "Caregiver", "Old Person Care", "Cooking", "Driving"
+];
+
 const CandidateCard = ({ candidate }: CandidateCardProps) => {
+  // Filter candidate skills to only show standardized ones
+  const displaySkills = candidate.skills.filter(skill => 
+    STANDARDIZED_SKILLS.some(standardSkill => 
+      skill.toLowerCase().includes(standardSkill.toLowerCase()) ||
+      standardSkill.toLowerCase().includes(skill.toLowerCase())
+    )
+  );
+
   return (
     <Card className="overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 bg-gradient-to-br from-emerald-50 to-emerald-100/30">
       {/* Profile Image Section */}
@@ -49,11 +63,11 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
           )}
         </div>
 
-        {/* Top Skills Preview */}
+        {/* Standardized Skills Preview */}
         <div className="space-y-2">
-          <h4 className="font-semibold text-emerald-800 text-sm">Top Skills</h4>
+          <h4 className="font-semibold text-emerald-800 text-sm">Skills</h4>
           <div className="flex flex-wrap gap-1">
-            {candidate.skills.slice(0, 3).map((skill) => (
+            {displaySkills.slice(0, 3).map((skill) => (
               <Badge 
                 key={skill} 
                 variant="secondary" 
@@ -62,9 +76,9 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
                 {skill}
               </Badge>
             ))}
-            {candidate.skills.length > 3 && (
+            {displaySkills.length > 3 && (
               <Badge variant="outline" className="text-xs text-gray-500">
-                +{candidate.skills.length - 3} more
+                +{displaySkills.length - 3} more
               </Badge>
             )}
           </div>

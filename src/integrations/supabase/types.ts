@@ -19,6 +19,7 @@ export type Database = {
           id: string
           notes: string | null
           portfolio_url: string | null
+          selected_skills: string[] | null
           skills: string
           status: string | null
           updated_at: string | null
@@ -32,6 +33,7 @@ export type Database = {
           id?: string
           notes?: string | null
           portfolio_url?: string | null
+          selected_skills?: string[] | null
           skills: string
           status?: string | null
           updated_at?: string | null
@@ -45,6 +47,7 @@ export type Database = {
           id?: string
           notes?: string | null
           portfolio_url?: string | null
+          selected_skills?: string[] | null
           skills?: string
           status?: string | null
           updated_at?: string | null
@@ -205,6 +208,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      convert_skills_to_array: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       link_caregiver_skills: {
         Args: Record<PropertyKey, never>
         Returns: undefined

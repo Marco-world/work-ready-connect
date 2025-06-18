@@ -13,21 +13,40 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Star, Award, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 
 const formSchema = z.object({
   fullName: z.string().optional(),
   email: z.string().optional(),
   phoneNumber: z.string().min(1, "Phone number is required"),
   headline: z.string().optional(),
-  skills: z.string().optional(),
+  selectedSkills: z.array(z.string()).optional(),
   bio: z.string().optional(),
 });
 
+const AVAILABLE_SKILLS = [
+  "Cleaning",
+  "Washing", 
+  "Ironing",
+  "Baby Sitting",
+  "New Born Care",
+  "Decorating",
+  "Housekeeping",
+  "Caregiver",
+  "Old Person Care",
+  "Cooking",
+  "Driving"
+];
+
 const Apply = () => {
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,10 +54,21 @@ const Apply = () => {
       email: "",
       phoneNumber: "",
       headline: "",
-      skills: "",
+      selectedSkills: [],
       bio: "",
     },
   });
+
+  const handleSkillChange = (skill: string, checked: boolean) => {
+    let updatedSkills;
+    if (checked) {
+      updatedSkills = [...selectedSkills, skill];
+    } else {
+      updatedSkills = selectedSkills.filter(s => s !== skill);
+    }
+    setSelectedSkills(updatedSkills);
+    form.setValue('selectedSkills', updatedSkills);
+  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -49,7 +79,8 @@ const Apply = () => {
           email: values.email || '',
           phone_number: values.phoneNumber,
           headline: values.headline || '',
-          skills: values.skills || '',
+          skills: selectedSkills.join(', '),
+          selected_skills: selectedSkills,
           bio: values.bio || '',
         });
 
@@ -60,6 +91,7 @@ const Apply = () => {
         description: "Welcome to the CareLink professional community. Our team will review your application and contact you within 24-48 hours.",
       });
       form.reset();
+      setSelectedSkills([]);
     } catch (error) {
       console.error("Error submitting application:", error);
       toast.error("Application submission failed", {
@@ -166,15 +198,31 @@ const Apply = () => {
                   )}
                 />
                 
+                {/* Skills Selection */}
                 <FormField
                   control={form.control}
-                  name="skills"
-                  render={({ field }) => (
+                  name="selectedSkills"
+                  render={() => (
                     <FormItem>
-                      <FormLabel className="text-primary font-semibold">Core Competencies & Certifications</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g. Patient Care, CPR/First Aid, Medication Management, Elder Care" className="border-primary/20 focus:border-primary" {...field} />
-                      </FormControl>
+                      <FormLabel className="text-primary font-semibold">Professional Skills</FormLabel>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
+                        {AVAILABLE_SKILLS.map(skill => (
+                          <div key={skill} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`skill-${skill}`}
+                              checked={selectedSkills.includes(skill)}
+                              onCheckedChange={(checked) => handleSkillChange(skill, checked as boolean)}
+                              className="border-primary/30 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                            />
+                            <Label 
+                              htmlFor={`skill-${skill}`}
+                              className="text-sm text-gray-700 cursor-pointer"
+                            >
+                              {skill}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}

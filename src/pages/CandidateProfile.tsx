@@ -7,6 +7,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MapPin, Clock, Users, MessageCircle } from "lucide-react";
 
+// Standardized skills list
+const STANDARDIZED_SKILLS = [
+  'Cleaning', 'Washing', 'Ironing', 'Baby Sitting', 'New Born Care',
+  'Decorating', 'Housekeeping', 'Caregiver', 'Old Person Care', 
+  'Cooking', 'Driving'
+];
+
 const CandidateProfile = () => {
   const { id } = useParams();
   const candidate = candidates.find(c => c.id === parseInt(id || '0'));
@@ -128,31 +135,34 @@ const CandidateProfile = () => {
             </CardContent>
           </Card>
 
-          {/* Skills */}
+          {/* Standardized Skills */}
           <Card>
             <CardHeader>
               <h2 className="text-xl font-bold text-emerald-800">Skills</h2>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {[
-                  'Cleaning', 'Washing', 'Ironing', 'Baby Sitting', 'New Born Care',
-                  'Decorating', 'Housekeeping', 'Caregiver', 'Old Person Care', 
-                  'Cooking', 'Driving'
-                ].map((skill) => (
-                  <div key={skill} className="flex justify-between items-center text-sm">
-                    <span className="text-gray-700">{skill}</span>
-                    <Badge 
-                      variant={candidate.skills.includes(skill) ? "default" : "secondary"}
-                      className={candidate.skills.includes(skill) 
-                        ? "bg-emerald-100 text-emerald-700" 
-                        : "bg-gray-100 text-gray-500"
-                      }
-                    >
-                      {candidate.skills.includes(skill) ? "✓" : "−"}
-                    </Badge>
-                  </div>
-                ))}
+                {STANDARDIZED_SKILLS.map((skill) => {
+                  const hasSkill = candidate.skills.some(candidateSkill => 
+                    candidateSkill.toLowerCase().includes(skill.toLowerCase()) ||
+                    skill.toLowerCase().includes(candidateSkill.toLowerCase())
+                  );
+                  
+                  return (
+                    <div key={skill} className="flex justify-between items-center text-sm">
+                      <span className="text-gray-700">{skill}</span>
+                      <Badge 
+                        variant={hasSkill ? "default" : "secondary"}
+                        className={hasSkill 
+                          ? "bg-emerald-100 text-emerald-700" 
+                          : "bg-gray-100 text-gray-500"
+                        }
+                      >
+                        {hasSkill ? "✓" : "−"}
+                      </Badge>
+                    </div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
