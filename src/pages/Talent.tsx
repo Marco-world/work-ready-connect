@@ -3,31 +3,66 @@ import CandidateCard from "@/components/CandidateCard";
 import { candidates } from "@/data/candidates";
 import { Heart, Shield, Clock, Users } from "lucide-react";
 import { useState } from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 const Talent = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("all");
-  const [selectedSkill, setSelectedSkill] = useState<string>("all");
+  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
-  // Extract unique languages and skills from candidates
+  // Define allowed languages and skills
   const allLanguages = ["English", "Arabic", "Spanish", "French", "Tagalog"];
-  const allSkills = Array.from(new Set(candidates.flatMap(candidate => candidate.skills)));
+  const allowedSkills = [
+    "Cleaning",
+    "Washing", 
+    "Ironing",
+    "Baby Sitting",
+    "New Born Care",
+    "Decorating",
+    "Housekeeping",
+    "Caregiver",
+    "Old Person Care",
+    "Cooking",
+    "Driving"
+  ];
 
   // Filter candidates based on selected filters
   const filteredCandidates = candidates.filter(candidate => {
-    const languageMatch = selectedLanguage === "all" || 
-      (selectedLanguage === "English" || selectedLanguage === "Arabic"); // Assuming all candidates have these
+    const languageMatch = selectedLanguages.length === 0 || 
+      selectedLanguages.some(lang => 
+        lang === "English" || lang === "Arabic" // Assuming all candidates have these
+      );
     
-    const skillMatch = selectedSkill === "all" || 
-      candidate.skills.some(skill => skill.toLowerCase().includes(selectedSkill.toLowerCase()));
+    const skillMatch = selectedSkills.length === 0 || 
+      selectedSkills.some(skill => 
+        candidate.skills.some(candidateSkill => 
+          candidateSkill.toLowerCase().includes(skill.toLowerCase())
+        )
+      );
 
     return languageMatch && skillMatch;
   });
 
   const resetFilters = () => {
-    setSelectedLanguage("all");
-    setSelectedSkill("all");
+    setSelectedLanguages([]);
+    setSelectedSkills([]);
+  };
+
+  const handleLanguageChange = (language: string, checked: boolean) => {
+    if (checked) {
+      setSelectedLanguages(prev => [...prev, language]);
+    } else {
+      setSelectedLanguages(prev => prev.filter(lang => lang !== language));
+    }
+  };
+
+  const handleSkillChange = (skill: string, checked: boolean) => {
+    if (checked) {
+      setSelectedSkills(prev => [...prev, skill]);
+    } else {
+      setSelectedSkills(prev => prev.filter(s => s !== skill));
+    }
   };
 
   return (
@@ -68,64 +103,83 @@ const Talent = () => {
         {/* Filter Section */}
         <div className="mb-8 p-6 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-emerald-100">
           <h3 className="text-lg font-semibold text-emerald-900 mb-4">Filter Caregivers</h3>
-          <div className="grid md:grid-cols-3 gap-4 items-end">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-emerald-800">Language</label>
-              <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-                <SelectTrigger className="border-emerald-200 focus:border-emerald-500">
-                  <SelectValue placeholder="Select language" />
-                </SelectTrigger>
-                <SelectContent className="bg-white border border-emerald-200 shadow-lg z-50">
-                  <SelectItem value="all">All Languages</SelectItem>
-                  {allLanguages.map(language => (
-                    <SelectItem key={language} value={language}>{language}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Language Filters */}
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-emerald-800">Languages</label>
+              <div className="space-y-2">
+                {allLanguages.map(language => (
+                  <div key={language} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`language-${language}`}
+                      checked={selectedLanguages.includes(language)}
+                      onCheckedChange={(checked) => handleLanguageChange(language, checked as boolean)}
+                      className="border-emerald-300 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600"
+                    />
+                    <Label 
+                      htmlFor={`language-${language}`}
+                      className="text-sm text-emerald-700 cursor-pointer"
+                    >
+                      {language}
+                    </Label>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-2">
+            {/* Skill Filters */}
+            <div className="space-y-3">
               <label className="text-sm font-medium text-emerald-800">Skills</label>
-              <Select value={selectedSkill} onValueChange={setSelectedSkill}>
-                <SelectTrigger className="border-emerald-200 focus:border-emerald-500">
-                  <SelectValue placeholder="Select skill" />
-                </SelectTrigger>
-                <SelectContent className="bg-white border border-emerald-200 shadow-lg z-50">
-                  <SelectItem value="all">All Skills</SelectItem>
-                  {allSkills.map(skill => (
-                    <SelectItem key={skill} value={skill}>{skill}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={resetFilters}
-                className="px-4 py-2 text-sm border border-emerald-600 text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors"
-              >
-                Reset Filters
-              </button>
-              <div className="text-sm text-emerald-700 flex items-center">
-                Showing {filteredCandidates.length} caregiver{filteredCandidates.length !== 1 ? 's' : ''}
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {allowedSkills.map(skill => (
+                  <div key={skill} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`skill-${skill}`}
+                      checked={selectedSkills.includes(skill)}
+                      onCheckedChange={(checked) => handleSkillChange(skill, checked as boolean)}
+                      className="border-emerald-300 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600"
+                    />
+                    <Label 
+                      htmlFor={`skill-${skill}`}
+                      className="text-sm text-emerald-700 cursor-pointer"
+                    >
+                      {skill}
+                    </Label>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <button
+              onClick={resetFilters}
+              className="px-4 py-2 text-sm border border-emerald-600 text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors"
+            >
+              Reset Filters
+            </button>
+            <div className="text-sm text-emerald-700">
+              Showing {filteredCandidates.length} caregiver{filteredCandidates.length !== 1 ? 's' : ''}
+            </div>
+          </div>
+
           {/* Active Filters */}
-          {(selectedLanguage !== "all" || selectedSkill !== "all") && (
-            <div className="mt-4 flex flex-wrap gap-2">
+          {(selectedLanguages.length > 0 || selectedSkills.length > 0) && (
+            <div className="mt-4 space-y-2">
               <span className="text-sm text-emerald-700">Active filters:</span>
-              {selectedLanguage !== "all" && (
-                <Badge variant="secondary" className="bg-emerald-100 text-emerald-700">
-                  Language: {selectedLanguage}
-                </Badge>
-              )}
-              {selectedSkill !== "all" && (
-                <Badge variant="secondary" className="bg-emerald-100 text-emerald-700">
-                  Skill: {selectedSkill}
-                </Badge>
-              )}
+              <div className="flex flex-wrap gap-2">
+                {selectedLanguages.map(language => (
+                  <Badge key={`lang-${language}`} variant="secondary" className="bg-emerald-100 text-emerald-700">
+                    Language: {language}
+                  </Badge>
+                ))}
+                {selectedSkills.map(skill => (
+                  <Badge key={`skill-${skill}`} variant="secondary" className="bg-emerald-100 text-emerald-700">
+                    Skill: {skill}
+                  </Badge>
+                ))}
+              </div>
             </div>
           )}
         </div>
