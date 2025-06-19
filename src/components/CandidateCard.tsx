@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Star } from "lucide-react";
+import { MapPin, Clock, Star, Languages } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface CandidateCardProps {
@@ -28,11 +28,11 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
 
   return (
     <Card className="overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 bg-gradient-to-br from-emerald-50 to-emerald-100/30">
-      {/* Profile Image Section */}
-      <CardHeader className="bg-emerald-600 text-white p-6 text-center">
-        <Avatar className="h-24 w-24 mx-auto ring-4 ring-white/20 mb-4">
-          <AvatarImage src={candidate.avatarUrl} alt={candidate.name} />
-          <AvatarFallback className="bg-white text-emerald-600 font-bold text-xl">
+      {/* Profile Image Section - Made Bigger */}
+      <CardHeader className="bg-emerald-600 text-white p-8 text-center">
+        <Avatar className="h-32 w-32 mx-auto ring-4 ring-white/20 mb-4">
+          <AvatarImage src={candidate.avatarUrl} alt={candidate.name} className="object-cover" />
+          <AvatarFallback className="bg-white text-emerald-600 font-bold text-2xl">
             {candidate.name.charAt(0)}
           </AvatarFallback>
         </Avatar>
@@ -41,19 +41,44 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
       </CardHeader>
 
       <CardContent className="p-6 space-y-4">
+        {/* Experience Highlight */}
+        {candidate.experience && (
+          <div className="text-center p-3 bg-emerald-100 rounded-lg">
+            <div className="flex items-center justify-center gap-2 text-emerald-800">
+              <Clock className="h-5 w-5" />
+              <span className="font-semibold text-lg">{candidate.experience}</span>
+            </div>
+            <p className="text-sm text-emerald-600">Experience</p>
+          </div>
+        )}
+
+        {/* Languages */}
+        {candidate.languages && candidate.languages.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Languages className="h-4 w-4 text-emerald-600" />
+              <h4 className="font-semibold text-emerald-800 text-sm">Languages</h4>
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {candidate.languages.map((language) => (
+                <Badge 
+                  key={language} 
+                  variant="outline" 
+                  className="border-emerald-300 text-emerald-700 text-xs"
+                >
+                  {language}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Quick Details */}
         <div className="space-y-3">
           <div className="flex items-center gap-2 text-sm">
             <MapPin className="h-4 w-4 text-emerald-600" />
             <span className="text-gray-700">{candidate.location}</span>
           </div>
-          
-          {candidate.experience && (
-            <div className="flex items-center gap-2 text-sm">
-              <Clock className="h-4 w-4 text-emerald-600" />
-              <span className="text-gray-700">{candidate.experience} Experience</span>
-            </div>
-          )}
 
           {candidate.availability && (
             <div className="flex items-center gap-2 text-sm">

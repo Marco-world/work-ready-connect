@@ -15,7 +15,7 @@ const Talent = () => {
   const filteredCandidates = candidates.filter(candidate => {
     const languageMatch = selectedLanguages.length === 0 || 
       selectedLanguages.some(lang => 
-        lang === "English" || lang === "Arabic" // Assuming all candidates have these
+        candidate.languages?.includes(lang)
       );
     
     const skillMatch = selectedSkills.length === 0 || 
