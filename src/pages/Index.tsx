@@ -1,6 +1,7 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Heart, Shield, Users, Briefcase, Star, Phone } from "lucide-react";
+import { ArrowRight, Heart, Shield, Users, Briefcase, Star, Phone, Stethoscope, Baby, Home, Users2 } from "lucide-react";
 import ProfessionalsCarousel from "@/components/ProfessionalsCarousel";
 import ClientContactForm from "@/components/ClientContactForm";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -139,13 +140,15 @@ const Index = () => {
                 <div 
                   className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
                   style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
                 />
                 <div className="relative z-10">
-                  <div className="text-5xl mb-4">👩‍⚕️</div>
+                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto mb-4">
+                    <Stethoscope className="h-6 w-6" />
+                  </div>
                   <h3 className="font-semibold text-lg">Nursing Care</h3>
                   <p className="text-sm text-muted-foreground mt-2">Professional medical care at home</p>
                 </div>
@@ -154,13 +157,15 @@ const Index = () => {
                 <div 
                   className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
                   style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1607455920583-139349b23838?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
                 />
                 <div className="relative z-10">
-                  <div className="text-5xl mb-4">👶</div>
+                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto mb-4">
+                    <Baby className="h-6 w-6" />
+                  </div>
                   <h3 className="font-semibold text-lg">Childcare</h3>
                   <p className="text-sm text-muted-foreground mt-2">Loving care for your little ones</p>
                 </div>
@@ -169,13 +174,15 @@ const Index = () => {
                 <div 
                   className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
                   style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
                 />
                 <div className="relative z-10">
-                  <div className="text-5xl mb-4">🏠</div>
+                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto mb-4">
+                    <Home className="h-6 w-6" />
+                  </div>
                   <h3 className="font-semibold text-lg">Housekeeping</h3>
                   <p className="text-sm text-muted-foreground mt-2">Professional home cleaning services</p>
                 </div>
@@ -184,13 +191,15 @@ const Index = () => {
                 <div 
                   className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
                   style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1582562124811-c09040d0a901?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
                 />
                 <div className="relative z-10">
-                  <div className="text-5xl mb-4">👴</div>
+                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto mb-4">
+                    <Users2 className="h-6 w-6" />
+                  </div>
                   <h3 className="font-semibold text-lg">Elder Care</h3>
                   <p className="text-sm text-muted-foreground mt-2">Compassionate senior assistance</p>
                 </div>

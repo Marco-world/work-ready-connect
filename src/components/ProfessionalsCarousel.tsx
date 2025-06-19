@@ -1,83 +1,99 @@
 
 import { useState, useEffect } from "react";
 import { candidates } from "@/data/candidates";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, Award } from "lucide-react";
+import CandidateCard from "@/components/CandidateCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ProfessionalsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(1);
+
+  useEffect(() => {
+    const updateCardsPerView = () => {
+      if (window.innerWidth >= 1024) {
+        setCardsPerView(3);
+      } else if (window.innerWidth >= 768) {
+        setCardsPerView(2);
+      } else {
+        setCardsPerView(1);
+      }
+    };
+
+    updateCardsPerView();
+    window.addEventListener('resize', updateCardsPerView);
+    return () => window.removeEventListener('resize', updateCardsPerView);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
-    }, 4000);
+      setCurrentIndex((prevIndex) => {
+        const maxIndex = Math.max(0, candidates.length - cardsPerView);
+        return prevIndex >= maxIndex ? 0 : prevIndex + 1;
+      });
+    }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [cardsPerView]);
+
+  const nextSlide = () => {
+    const maxIndex = Math.max(0, candidates.length - cardsPerView);
+    setCurrentIndex((prevIndex) => prevIndex >= maxIndex ? 0 : prevIndex + 1);
+  };
+
+  const prevSlide = () => {
+    const maxIndex = Math.max(0, candidates.length - cardsPerView);
+    setCurrentIndex((prevIndex) => prevIndex <= 0 ? maxIndex : prevIndex - 1);
+  };
+
+  const maxIndex = Math.max(0, candidates.length - cardsPerView);
 
   return (
-    <div className="relative w-full overflow-hidden bg-gradient-to-r from-primary/5 to-secondary/10 rounded-2xl p-8">
-      <div 
-        className="flex transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-      >
-        {candidates.map((candidate) => (
-          <div key={candidate.id} className="w-full flex-shrink-0 px-4">
-            <div className="flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto">
-              <div className="relative">
-                <Avatar className="h-32 w-32 md:h-40 md:w-40 ring-4 ring-primary/20 shadow-2xl">
-                  <AvatarImage src={candidate.avatarUrl} alt={candidate.name} className="object-cover" />
-                  <AvatarFallback className="bg-primary/10 text-primary font-bold text-2xl">
-                    {candidate.name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground rounded-full p-2">
-                  <Award className="h-4 w-4" />
-                </div>
-              </div>
-              
-              <div className="flex-1 text-center md:text-left space-y-4">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground">{candidate.name}</h3>
-                  <p className="text-lg text-muted-foreground font-medium">{candidate.headline}</p>
-                </div>
-                
-                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                  {candidate.skills.slice(0, 4).map((skill) => (
-                    <Badge key={skill} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 text-sm px-3 py-1">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start text-sm">
-                  {candidate.experience && (
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Award className="h-4 w-4 text-primary" />
-                      <span className="font-medium">{candidate.experience} experience</span>
-                    </div>
-                  )}
-                  {candidate.availability && (
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Clock className="h-4 w-4 text-primary" />
-                      <span className="font-medium">{candidate.availability}</span>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    <span className="font-medium">{candidate.location}</span>
-                  </div>
-                </div>
-              </div>
+    <div className="relative w-full">
+      <div className="overflow-hidden">
+        <div 
+          className="flex transition-transform duration-500 ease-in-out gap-6"
+          style={{ 
+            transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+            width: `${(candidates.length / cardsPerView) * 100}%`
+          }}
+        >
+          {candidates.map((candidate) => (
+            <div 
+              key={candidate.id} 
+              className="flex-shrink-0"
+              style={{ width: `${100 / candidates.length}%` }}
+            >
+              <CandidateCard candidate={candidate} />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       
+      {/* Navigation Buttons */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg"
+        onClick={prevSlide}
+        disabled={currentIndex === 0}
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </Button>
+      
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg"
+        onClick={nextSlide}
+        disabled={currentIndex >= maxIndex}
+      >
+        <ChevronRight className="h-4 w-4" />
+      </Button>
+      
       {/* Indicators */}
-      <div className="flex justify-center mt-8 gap-2">
-        {candidates.map((_, index) => (
+      <div className="flex justify-center mt-6 gap-2">
+        {Array.from({ length: maxIndex + 1 }).map((_, index) => (
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-all ${
