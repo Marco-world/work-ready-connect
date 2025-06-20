@@ -54,6 +54,39 @@ export type Database = {
         }
         Relationships: []
       }
+      care_services: {
+        Row: {
+          created_at: string | null
+          description: string
+          display_order: number | null
+          icon_name: string
+          id: string
+          image_url: string | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          display_order?: number | null
+          icon_name: string
+          id?: string
+          image_url?: string | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          display_order?: number | null
+          icon_name?: string
+          id?: string
+          image_url?: string | null
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       caregiver_skills: {
         Row: {
           caregiver_id: string | null
