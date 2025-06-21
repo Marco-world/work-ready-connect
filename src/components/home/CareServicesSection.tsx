@@ -35,15 +35,15 @@ const CareServicesSection = () => {
 
   if (isLoading) {
     return (
-      <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-20">
+      <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-12">
         <div className="container">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-emerald-900">Care Services for Every Family Need</h2>
             <p className="mt-2 text-emerald-700">Loading our care services...</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="text-center p-6 bg-background rounded-lg shadow-lg animate-pulse">
+              <div key={i} className="text-center p-4 bg-background rounded-lg shadow-lg animate-pulse">
                 <div className="h-12 w-12 rounded-full bg-gray-200 mx-auto mb-4"></div>
                 <div className="h-6 bg-gray-200 rounded mb-2"></div>
                 <div className="h-4 bg-gray-200 rounded"></div>
@@ -58,9 +58,9 @@ const CareServicesSection = () => {
   if (error) {
     console.error('Error fetching care services:', error);
     return (
-      <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-20">
+      <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-12">
         <div className="container">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-emerald-900">Care Services for Every Family Need</h2>
             <p className="mt-2 text-emerald-700">Professional care services tailored to your family's unique situation.</p>
           </div>
@@ -73,9 +73,9 @@ const CareServicesSection = () => {
   }
 
   return (
-    <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-20">
+    <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-12">
       <div className="container">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-emerald-900">Care Services for Every Family Need</h2>
           <p className="mt-2 text-emerald-700">Professional care services tailored to your family's unique situation.</p>
         </div>
@@ -84,7 +84,7 @@ const CareServicesSection = () => {
             const IconComponent = iconMap[service.icon_name as keyof typeof iconMap] || Home;
             
             return (
-              <div key={service.id} className="text-center p-6 bg-background rounded-lg shadow-lg hover-scale relative overflow-hidden group">
+              <div key={service.id} className="text-center p-4 bg-background rounded-lg shadow-lg hover-scale relative overflow-hidden group">
                 {service.image_url && (
                   <div 
                     className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"

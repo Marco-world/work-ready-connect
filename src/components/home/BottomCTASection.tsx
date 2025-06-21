@@ -5,7 +5,7 @@ import { Heart, Briefcase } from "lucide-react";
 
 const BottomCTASection = () => {
   return (
-    <section className="bg-gradient-to-r from-primary to-emerald-600 py-20">
+    <section className="bg-gradient-to-r from-primary to-emerald-600 py-16">
       <div className="container text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
