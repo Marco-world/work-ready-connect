@@ -13,7 +13,7 @@ const TalentResults = ({ filteredCandidates, onResetFilters }: TalentResultsProp
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-emerald-700 text-lg">No caregivers match your current filters.</p>
+          <p className="text-emerald-700 text-lg">No Household workers match your current filters.</p>
           <button
             onClick={onResetFilters}
             className="mt-4 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
@@ -24,7 +24,7 @@ const TalentResults = ({ filteredCandidates, onResetFilters }: TalentResultsProp
         
         {/* Family-focused CTA */}
         <div className="mt-16 text-center p-8 bg-emerald-50 rounded-lg border border-emerald-100">
-          <h3 className="text-2xl font-bold text-emerald-900 mb-4">Need help choosing the right caregiver?</h3>
+          <h3 className="text-2xl font-bold text-emerald-900 mb-4">Need help choosing the right Household worker?</h3>
           <p className="text-emerald-700 mb-6 max-w-2xl mx-auto">
             Our family care specialists are here to help you find the perfect match for your unique needs. 
             Every family is different, and we're committed to finding exactly what yours requires.
@@ -55,7 +55,7 @@ const TalentResults = ({ filteredCandidates, onResetFilters }: TalentResultsProp
       
       {/* Family-focused CTA */}
       <div className="mt-16 text-center p-8 bg-emerald-50 rounded-lg border border-emerald-100">
-        <h3 className="text-2xl font-bold text-emerald-900 mb-4">Need help choosing the right caregiver?</h3>
+        <h3 className="text-2xl font-bold text-emerald-900 mb-4">Need help choosing the right Household worker?</h3>
         <p className="text-emerald-700 mb-6 max-w-2xl mx-auto">
           Our family care specialists are here to help you find the perfect match for your unique needs. 
           Every family is different, and we're committed to finding exactly what yours requires.

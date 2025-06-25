@@ -128,7 +128,7 @@ const ClientContactForm = () => {
 
       console.log("Client Contact Request:", values);
       toast.success("Contact Request Received!", {
-        description: "Thank you for your interest. We'll connect you with the right caregiver soon.",
+        description: "Thank you for your interest. We'll connect you with the right Household worker soon.",
       });
       form.reset();
     } catch (error) {
@@ -147,7 +147,7 @@ const ClientContactForm = () => {
           Need Care Services?
         </CardTitle>
         <CardDescription className="text-lg">
-          Let us connect you with the perfect caregiver
+          Let us connect you with the perfect Household worker
         </CardDescription>
       </CardHeader>
       <CardContent className="p-8">

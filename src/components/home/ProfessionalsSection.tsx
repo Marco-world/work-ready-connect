@@ -10,7 +10,7 @@ const ProfessionalsSection = () => {
       <div className="container">
         <div className="text-center mb-8 animate-fade-in">
           <h2 className="text-3xl font-bold">Meet Our Caring Professionals</h2>
-          <p className="mt-2 text-muted-foreground">Dedicated caregivers ready to support your family with love and expertise.</p>
+          <p className="mt-2 text-muted-foreground">Dedicated Household workers ready to support your family with love and expertise.</p>
         </div>
         <ProfessionalsCarousel />
         <div className="text-center mt-8">

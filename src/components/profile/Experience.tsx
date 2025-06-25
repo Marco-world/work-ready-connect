@@ -20,7 +20,7 @@ const Experience = () => {
             </div>
             <div className="text-sm mt-2">
               <span className="text-gray-600 font-medium">Job Details:</span>
-              <span className="block text-gray-800">Senior caregiver for elderly patients with specialized medical needs. Provided 24/7 care including medication management and physical therapy support.</span>
+              <span className="block text-gray-800">Senior Household worker for elderly patients with specialized medical needs. Provided 24/7 care including medication management and physical therapy support.</span>
             </div>
           </div>
         </div>

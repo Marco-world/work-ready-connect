@@ -87,32 +87,32 @@ export type Database = {
         }
         Relationships: []
       }
-      caregiver_skills: {
+      Household worker_skills: {
         Row: {
-          caregiver_id: string | null
+          Household worker_id: string | null
           id: string
           skill_id: string | null
         }
         Insert: {
-          caregiver_id?: string | null
+          Household worker_id?: string | null
           id?: string
           skill_id?: string | null
         }
         Update: {
-          caregiver_id?: string | null
+          Household worker_id?: string | null
           id?: string
           skill_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "caregiver_skills_caregiver_id_fkey"
-            columns: ["caregiver_id"]
+            foreignKeyName: "Household worker_skills_Household worker_id_fkey"
+            columns: ["Household worker_id"]
             isOneToOne: false
-            referencedRelation: "caregivers"
+            referencedRelation: "Household workers"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "caregiver_skills_skill_id_fkey"
+            foreignKeyName: "Household worker_skills_skill_id_fkey"
             columns: ["skill_id"]
             isOneToOne: false
             referencedRelation: "skills"
@@ -120,7 +120,7 @@ export type Database = {
           },
         ]
       }
-      caregivers: {
+      Household workers: {
         Row: {
           availability: string | null
           avatar_url: string | null
@@ -165,7 +165,7 @@ export type Database = {
       client_requests: {
         Row: {
           additional_details: string | null
-          assigned_caregiver_id: string | null
+          assigned_Household worker_id: string | null
           created_at: string | null
           id: string
           location: string
@@ -179,7 +179,7 @@ export type Database = {
         }
         Insert: {
           additional_details?: string | null
-          assigned_caregiver_id?: string | null
+          assigned_Household worker_id?: string | null
           created_at?: string | null
           id?: string
           location: string
@@ -193,7 +193,7 @@ export type Database = {
         }
         Update: {
           additional_details?: string | null
-          assigned_caregiver_id?: string | null
+          assigned_Household worker_id?: string | null
           created_at?: string | null
           id?: string
           location?: string
@@ -207,10 +207,10 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "client_requests_assigned_caregiver_id_fkey"
-            columns: ["assigned_caregiver_id"]
+            foreignKeyName: "client_requests_assigned_Household worker_id_fkey"
+            columns: ["assigned_Household worker_id"]
             isOneToOne: false
-            referencedRelation: "caregivers"
+            referencedRelation: "Household workers"
             referencedColumns: ["id"]
           },
         ]
@@ -245,7 +245,7 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
-      link_caregiver_skills: {
+      link_Household worker_skills: {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }

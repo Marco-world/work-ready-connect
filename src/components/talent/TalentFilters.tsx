@@ -33,7 +33,7 @@ const TalentFilters = ({
         <div className="flex items-center gap-4">
           <h3 className="text-lg font-semibold text-emerald-900">Filter Caregivers</h3>
           <div className="text-sm text-emerald-700">
-            Showing {filteredCount} caregiver{filteredCount !== 1 ? 's' : ''}
+            Showing {filteredCount} Household worker{filteredCount !== 1 ? 's' : ''}
           </div>
         </div>
         <button

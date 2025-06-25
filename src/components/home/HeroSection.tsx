@@ -41,7 +41,7 @@ const HeroSection = () => {
                   <h3 className="text-2xl font-bold text-emerald-900">For Families</h3>
                 </div>
                 <p className="text-emerald-800 mb-6">
-                  Find verified, compassionate caregivers who will treat your loved ones like family. 
+                  Find verified, compassionate Household workers who will treat your loved ones like family. 
                   From childcare to senior support, we have trusted professionals ready to help.
                 </p>
                 <Button size="lg" asChild className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
