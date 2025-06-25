@@ -9,13 +9,8 @@ const HowItWorksSection = () => {
           <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-blue-900">
             How CareLink Works
           </h2>
-<<<<<<< HEAD
-          <p className="text-blue-700 text-base md:text-lg max-w-2xl mx-auto px-4">
-            Finding the perfect caregiver for your family is simple with our streamlined process
-=======
           <p className="text-emerald-700 text-lg max-w-2xl mx-auto">
             Finding the perfect Household worker for your family is simple with our streamlined process
->>>>>>> f1884e4 (terms correction)
           </p>
         </div>
         
@@ -76,8 +71,6 @@ const HowItWorksSection = () => {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-            
             <div className="relative text-center md:text-center group">
               <div className="flex md:justify-center items-start md:items-center gap-4 md:gap-0 md:flex-col">
                 {/* Enhanced Icon */}
@@ -98,17 +91,6 @@ const HowItWorksSection = () => {
                   </p>
                 </div>
               </div>
-=======
-            <h3 className="text-xl font-semibold mb-3 text-emerald-900">Get Matched</h3>
-            <p className="text-emerald-700">
-              Our team carefully matches you with pre-screened, qualified Household workers who fit your needs
-            </p>
-          </div>
-          
-          <div className="text-center group">
-            <div className="flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto mb-6 group-hover:bg-emerald-200 transition-colors">
-              <Heart className="h-8 w-8" />
->>>>>>> f1884e4 (terms correction)
             </div>
           </div>
         </div>
