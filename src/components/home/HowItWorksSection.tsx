@@ -66,7 +66,7 @@ const HowItWorksSection = () => {
                     Get Matched
                   </h3>
                   <p className="text-sm md:text-base text-blue-700 leading-relaxed max-w-xs mx-auto">
-                    Our expert team carefully matches you with pre-screened, qualified caregivers who perfectly fit your needs
+                    Our expert team carefully matches you with pre-screened, qualified Household workers who perfectly fit your needs
                   </p>
                 </div>
               </div>
