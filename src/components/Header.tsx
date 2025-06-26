@@ -14,13 +14,13 @@ const Header = () => {
     if (isApplicantFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/apply", label: "Caregiver Application" },
+        { to: "/apply", label: "Household worker Application" },
       ];
     }
     if (isClientFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/talent", label: "Browse Caregivers" },
+        { to: "/talent", label: "Browse Household workers" },
       ];
     }
     return [

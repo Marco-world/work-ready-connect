@@ -7,7 +7,7 @@ export const AVAILABLE_SKILLS = [
   "New Born Care",
   "Decorating",
   "Housekeeping",
-  "Caregiver",
+  "Household worker",
   "Old Person Care",
   "Cooking",
   "Driving"

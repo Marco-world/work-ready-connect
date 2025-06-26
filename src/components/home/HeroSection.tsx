@@ -56,7 +56,7 @@ const HeroSection = () => {
               <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 text-left">
                 <div className="flex items-center gap-3 mb-4">
                   <Briefcase className="h-8 w-8 text-primary" />
-                  <h3 className="text-2xl font-bold text-primary">For Caregivers</h3>
+                  <h3 className="text-2xl font-bold text-primary">For Household workers</h3>
                 </div>
                 <p className="text-black mb-6">
                   Join our professional network and build a meaningful career in caregiving. 
@@ -101,7 +101,7 @@ const HeroSection = () => {
                 1000+
               </div>
               <p className="text-lg text-muted-foreground font-medium">
-                Trusted Caregivers
+                Trusted Household workers
               </p>
             </div>
           </div>

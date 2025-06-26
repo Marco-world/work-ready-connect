@@ -31,7 +31,7 @@ const TalentFilters = ({
       {/* Filter Header */}
       <div className="p-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <h3 className="text-lg font-semibold text-emerald-900">Filter Caregivers</h3>
+          <h3 className="text-lg font-semibold text-emerald-900">Filter Household workers</h3>
           <div className="text-sm text-emerald-700">
             Showing {filteredCount} Household worker{filteredCount !== 1 ? 's' : ''}
           </div>

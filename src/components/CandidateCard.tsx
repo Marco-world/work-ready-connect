@@ -14,7 +14,7 @@ interface CandidateCardProps {
 // Standardized skills list
 const STANDARDIZED_SKILLS = [
   "Cleaning", "Washing", "Ironing", "Baby Sitting", "New Born Care",
-  "Decorating", "Housekeeping", "Caregiver", "Old Person Care", "Cooking", "Driving"
+  "Decorating", "Housekeeping", "Household worker", "Old Person Care", "Cooking", "Driving"
 ];
 
 const CandidateCard = ({ candidate }: CandidateCardProps) => {

@@ -7,7 +7,7 @@ const ApplyHeader = () => {
     <CardHeader className="text-center bg-gradient-to-r from-primary/10 to-primary/5 rounded-t-lg">
       <CardTitle className="text-3xl flex items-center justify-center gap-3 text-primary">
         <Briefcase className="h-8 w-8" />
-        Professional Caregiver Application
+        Professional Household worker Application
       </CardTitle>
       <CardDescription className="text-lg text-muted-foreground mt-4">
         Join our elite network of healthcare professionals and make a meaningful impact in families' lives. 

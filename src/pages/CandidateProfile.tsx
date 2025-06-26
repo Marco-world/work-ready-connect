@@ -24,7 +24,7 @@ const CandidateProfile = () => {
           <Link to="/talent">
             <Button className="bg-emerald-600 hover:bg-emerald-700">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Browse Caregivers
+              Back to Browse Household workers
             </Button>
           </Link>
         </div>
@@ -39,7 +39,7 @@ const CandidateProfile = () => {
           <Link to="/talent">
             <Button variant="outline" className="mb-4 border-emerald-600 text-emerald-600 hover:bg-emerald-50">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Browse Caregivers
+              Back to Browse Household workers
             </Button>
           </Link>
         </div>

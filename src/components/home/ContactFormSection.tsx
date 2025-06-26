@@ -7,7 +7,7 @@ const ContactFormSection = () => {
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-emerald-900">
-            Ready to Find Your Perfect Caregiver?
+            Ready to Find Your Perfect Household worker?
           </h2>
           <p className="text-emerald-700 text-lg max-w-2xl mx-auto">
             Join thousands of families who trust CareLink for their most important care needs. 
