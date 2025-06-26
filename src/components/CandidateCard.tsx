@@ -1,4 +1,3 @@
-
 import { Candidate } from "@/data/candidates";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -27,20 +26,24 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
   );
 
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 bg-gradient-to-br from-emerald-50 to-emerald-100/30">
-      {/* Profile Image Section - Made Bigger */}
-      <CardHeader className="bg-emerald-600 text-white p-8 text-center">
-        <Avatar className="h-32 w-32 mx-auto ring-4 ring-white/20 mb-4">
-          <AvatarImage src={candidate.avatarUrl} alt={candidate.name} className="object-cover" />
-          <AvatarFallback className="bg-white text-emerald-600 font-bold text-2xl">
-            {candidate.name.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
-        <h3 className="text-xl font-bold text-white">{candidate.name}</h3>
-        <p className="text-emerald-100 font-medium">{candidate.headline}</p>
+    <Card className="overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 bg-gradient-to-br from-emerald-50 to-emerald-100/30 max-w-md mx-auto">
+      {/* Profile Image Section - Avatar is much larger and visually dominant */}
+      <CardHeader className="bg-emerald-600 text-white flex flex-col items-center pt-10 pb-6 px-6 relative">
+        <div className="relative flex flex-col items-center w-full">
+          <Avatar className="h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 lg:h-64 lg:w-64 mx-auto ring-8 ring-white/30 shadow-lg z-10" /* 176px-256px */>
+            <AvatarImage src={candidate.avatarUrl} alt={candidate.name} className="object-cover" />
+            <AvatarFallback className="bg-white text-emerald-600 font-bold text-4xl">
+              {candidate.name.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="mt-6 text-center w-full">
+            <h3 className="text-2xl font-bold text-white">{candidate.name}</h3>
+            <p className="text-emerald-100 font-medium text-base">{candidate.headline}</p>
+          </div>
+        </div>
       </CardHeader>
 
-      <CardContent className="p-6 space-y-4">
+      <CardContent className="p-6 pt-4 space-y-5">
         {/* Experience Highlight */}
         {candidate.experience && (
           <div className="text-center p-3 bg-emerald-100 rounded-lg">
@@ -116,7 +119,7 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
         </div>
 
         {/* View Full Profile Button */}
-        <Button asChild className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
+        <Button asChild className="w-full bg-emerald-600 hover:bg-emerald-700 text-white mt-2">
           <Link to={`/candidate/${candidate.id}`}>
             View Full Profile
           </Link>
