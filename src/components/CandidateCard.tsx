@@ -1,23 +1,21 @@
 import { Candidate } from "@/data/candidates";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Star, Languages } from "lucide-react";
+import { MapPin, Star, Languages } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface CandidateCardProps {
   candidate: Candidate;
 }
 
-// Standardized skills list
 const STANDARDIZED_SKILLS = [
   "Cleaning", "Washing", "Ironing", "Baby Sitting", "New Born Care",
   "Decorating", "Housekeeping", "Household worker", "Old Person Care", "Cooking", "Driving"
 ];
 
 const CandidateCard = ({ candidate }: CandidateCardProps) => {
-  // Filter candidate skills to only show standardized ones
   const displaySkills = candidate.skills.filter(skill =>
     STANDARDIZED_SKILLS.some(standardSkill =>
       skill.toLowerCase().includes(standardSkill.toLowerCase()) ||
@@ -26,110 +24,103 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
   );
 
   return (
-    <Card className="overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-100/30 max-w-md mx-auto">
-      {/* Header with strict 3:1 portrait avatar */}
-      <CardHeader className="px-0 pt-0 pb-6 flex flex-col items-center">
-        {/* 3:1 aspect ratio image container, full width, sharp corners */}
-        <div className="w-full aspect-[3/1]">
-          <Avatar className="w-full h-full rounded-none">
-            <AvatarImage
-              src={candidate.avatarUrl}
-              alt={candidate.name}
-              className="object-cover w-full h-full rounded-none bg-gray-100"
-            />
-            <AvatarFallback className="bg-white text-emerald-600 font-bold text-5xl flex items-center justify-center w-full h-full rounded-none">
-              {candidate.name.charAt(0)}
-            </AvatarFallback>
-          </Avatar>
-        </div>
-        {/* Emerald background only below image */}
-        <div className="w-full bg-emerald-600 pt-8 px-6 text-center">
-          <h3 className="text-2xl font-bold text-white">{candidate.name}</h3>
-          <p className="text-emerald-100 font-medium text-base">{candidate.headline}</p>
-        </div>
-      </CardHeader>
+    <Card className="bg-white border border-emerald-100 rounded-xl overflow-hidden max-w-md mx-auto p-0">
+      {/* Avatar: 3:1, bleeds to edges */}
+      <div className="w-full aspect-[3/1]">
+        <Avatar className="w-full h-full rounded-none">
+          <AvatarImage
+            src={candidate.avatarUrl}
+            alt={candidate.name}
+            className="object-cover w-full h-full rounded-none bg-gray-100"
+          />
+          <AvatarFallback className="bg-white text-emerald-600 font-bold text-5xl flex items-center justify-center w-full h-full rounded-none">
+            {candidate.name.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
+      </div>
 
-      <CardContent className="p-6 pt-4 space-y-5">
-        {/* Experience Highlight */}
+      <CardContent className="p-6 pt-4 space-y-4">
+        {/* Name & Headline */}
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-emerald-900">{candidate.name}</h3>
+          <p className="text-emerald-700 text-sm">{candidate.headline}</p>
+        </div>
+
+        {/* Experience as badge */}
         {candidate.experience && (
-          <div className="text-center p-3 bg-emerald-100 rounded-lg">
-            <div className="flex items-center justify-center gap-2 text-emerald-800">
-              <Clock className="h-5 w-5" />
-              <span className="font-semibold text-lg">{candidate.experience}</span>
-            </div>
-            <p className="text-sm text-emerald-600">Experience</p>
+          <div className="flex justify-center">
+            <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 text-xs font-medium flex items-center gap-1">
+              <Star className="h-3 w-3 text-emerald-500" />
+              {candidate.experience}
+            </Badge>
           </div>
         )}
 
-        {/* Languages */}
-        {candidate.languages && candidate.languages.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Languages className="h-4 w-4 text-emerald-600" />
-              <h4 className="font-semibold text-emerald-800 text-sm">Languages</h4>
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {candidate.languages.map((language) => (
-                <Badge
-                  key={language}
-                  variant="outline"
-                  className="border-emerald-300 text-emerald-700 text-xs"
-                >
-                  {language}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Quick Details */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2 text-sm">
-            <MapPin className="h-4 w-4 text-emerald-600" />
-            <span className="text-gray-700">{candidate.location}</span>
-          </div>
-
+        {/* Location & Availability */}
+        <div className="flex items-center justify-center gap-3 text-xs text-gray-600">
+          <span className="flex items-center gap-1">
+            <MapPin className="h-3 w-3 text-emerald-500" />
+            {candidate.location}
+          </span>
           {candidate.availability && (
-            <div className="flex items-center gap-2 text-sm">
-              <Star className="h-4 w-4 text-emerald-600" />
-              <span className="text-gray-700">Available {candidate.availability}</span>
-            </div>
+            <>
+              <span className="text-emerald-300">|</span>
+              <span className="flex items-center gap-1">
+                <Star className="h-3 w-3 text-emerald-500" />
+                Available {candidate.availability}
+              </span>
+            </>
           )}
         </div>
 
-        {/* Standardized Skills Preview */}
-        <div className="space-y-2">
-          <h4 className="font-semibold text-emerald-800 text-sm">Skills</h4>
-          <div className="flex flex-wrap gap-1">
+        {/* Languages */}
+        {candidate.languages && candidate.languages.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-1">
+            <Languages className="h-3 w-3 text-emerald-500 mr-1" />
+            {candidate.languages.map((language) => (
+              <Badge
+                key={language}
+                variant="outline"
+                className="border-emerald-200 text-emerald-700 text-xs px-2 py-0.5"
+              >
+                {language}
+              </Badge>
+            ))}
+          </div>
+        )}
+
+        {/* Skills */}
+        <div>
+          <div className="flex flex-wrap justify-center gap-1">
             {displaySkills.slice(0, 3).map((skill) => (
               <Badge
                 key={skill}
                 variant="secondary"
-                className="bg-emerald-100 text-emerald-700 text-xs"
+                className="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5"
               >
                 {skill}
               </Badge>
             ))}
             {displaySkills.length > 3 && (
-              <Badge variant="outline" className="text-xs text-gray-500">
+              <Badge variant="outline" className="text-xs text-gray-500 px-2 py-0.5 border-emerald-200">
                 +{displaySkills.length - 3} more
               </Badge>
             )}
           </div>
         </div>
 
-        {/* Status */}
-        <div className="flex justify-between items-center text-sm py-2 border-t border-emerald-100">
-          <span className="text-gray-600">Status:</span>
-          <span className="text-green-600 font-medium">Available</span>
+        {/* Status & Profile Button */}
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center text-xs py-2 border-t border-emerald-100">
+            <span className="text-gray-500">Status:</span>
+            <span className="text-green-600 font-medium">Available</span>
+          </div>
+          <Button asChild className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-md">
+            <Link to={`/candidate/${candidate.id}`}>
+              View Full Profile
+            </Link>
+          </Button>
         </div>
-
-        {/* View Full Profile Button */}
-        <Button asChild className="w-full bg-emerald-600 hover:bg-emerald-700 text-white mt-2">
-          <Link to={`/candidate/${candidate.id}`}>
-            View Full Profile
-          </Link>
-        </Button>
       </CardContent>
     </Card>
   );
