@@ -15,7 +15,7 @@ export const candidates: Candidate[] = [
   {
     id: 1,
     name: "Maria Rodriguez",
-    avatarUrl: `https://i.pravatar.cc/500?u=maria`,
+    avatarUrl: `https://i.pravatar.cc/400?img=31`,
     headline: "Certified Registered Nurse",
     skills: ["Patient Care", "Medication Management", "CPR Certified", "Compassionate Care"],
     location: "Los Angeles, CA",
@@ -26,7 +26,7 @@ export const candidates: Candidate[] = [
   {
     id: 2,
     name: "Jennifer Kim",
-    avatarUrl: `https://i.pravatar.cc/500?u=jennifer`,
+    avatarUrl: `https://i.pravatar.cc/400?img=44`,
     headline: "Professional Housekeeper",
     skills: ["Deep Cleaning", "Organization", "Eco-Friendly Products", "Attention to Detail"],
     location: "Seattle, WA",
@@ -37,7 +37,7 @@ export const candidates: Candidate[] = [
   {
     id: 3,
     name: "Sarah Johnson",
-    avatarUrl: `https://i.pravatar.cc/500?u=sarah`,
+    avatarUrl: `https://i.pravatar.cc/400?img=32`,
     headline: "Experienced Nanny & Childcare Provider",
     skills: ["Child Development", "Educational Activities", "First Aid", "Multilingual"],
     location: "New York, NY",
@@ -48,7 +48,7 @@ export const candidates: Candidate[] = [
   {
     id: 4,
     name: "Elena Popovic",
-    avatarUrl: `https://i.pravatar.cc/500?u=elena`,
+    avatarUrl: `https://i.pravatar.cc/400?u=elena`,
     headline: "Senior Home Care Assistant",
     skills: ["Elder Care", "Mobility Assistance", "Meal Preparation", "Companionship"],
     location: "Miami, FL",
@@ -59,7 +59,7 @@ export const candidates: Candidate[] = [
   {
     id: 5,
     name: "Grace Williams",
-    avatarUrl: `https://i.pravatar.cc/500?u=grace`,
+    avatarUrl: `https://i.pravatar.cc/400?u=grace`,
     headline: "Certified Home Health Aide",
     skills: ["Personal Care", "Medical Equipment", "Physical Therapy Support", "Patient Advocacy"],
     location: "Chicago, IL",
@@ -70,7 +70,7 @@ export const candidates: Candidate[] = [
   {
     id: 6,
     name: "Lisa Chen",
-    avatarUrl: `https://i.pravatar.cc/500?u=lisa`,
+    avatarUrl: `https://i.pravatar.cc/400?img=34`,
     headline: "Professional House Manager",
     skills: ["Household Management", "Staff Coordination", "Budget Management", "Event Planning"],
     location: "San Francisco, CA",
