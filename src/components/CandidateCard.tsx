@@ -18,8 +18,8 @@ const STANDARDIZED_SKILLS = [
 
 const CandidateCard = ({ candidate }: CandidateCardProps) => {
   // Filter candidate skills to only show standardized ones
-  const displaySkills = candidate.skills.filter(skill => 
-    STANDARDIZED_SKILLS.some(standardSkill => 
+  const displaySkills = candidate.skills.filter(skill =>
+    STANDARDIZED_SKILLS.some(standardSkill =>
       skill.toLowerCase().includes(standardSkill.toLowerCase()) ||
       standardSkill.toLowerCase().includes(skill.toLowerCase())
     )
@@ -27,23 +27,23 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
 
   return (
     <Card className="overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-100/30 max-w-md mx-auto">
-      {/* Header with ultra-portrait avatar */}
-      <CardHeader className="bg-emerald-600 text-white flex flex-col items-center px-0 pt-0 pb-6 relative">
-        {/* Ultra-portrait avatar: 3:1 aspect, sharp corners, fills width */}
-        <div className="w-full">
-          <Avatar className="w-full aspect-[3/1] rounded-none">
+      {/* Header with strict 3:1 portrait avatar */}
+      <CardHeader className="px-0 pt-0 pb-6 flex flex-col items-center">
+        {/* 3:1 aspect ratio image container, full width, sharp corners */}
+        <div className="w-full aspect-[3/1]">
+          <Avatar className="w-full h-full rounded-none">
             <AvatarImage
               src={candidate.avatarUrl}
               alt={candidate.name}
-              className="object-cover w-full h-full rounded-none"
+              className="object-cover w-full h-full rounded-none bg-gray-100"
             />
-            <AvatarFallback className="bg-white text-emerald-600 font-bold text-4xl flex items-center justify-center w-full h-full rounded-none">
+            <AvatarFallback className="bg-white text-emerald-600 font-bold text-5xl flex items-center justify-center w-full h-full rounded-none">
               {candidate.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
         </div>
-        {/* Text content below image, header background visible here */}
-        <div className="w-full text-center pt-6 px-6">
+        {/* Emerald background only below image */}
+        <div className="w-full bg-emerald-600 pt-8 px-6 text-center">
           <h3 className="text-2xl font-bold text-white">{candidate.name}</h3>
           <p className="text-emerald-100 font-medium text-base">{candidate.headline}</p>
         </div>
@@ -70,9 +70,9 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
             </div>
             <div className="flex flex-wrap gap-1">
               {candidate.languages.map((language) => (
-                <Badge 
-                  key={language} 
-                  variant="outline" 
+                <Badge
+                  key={language}
+                  variant="outline"
                   className="border-emerald-300 text-emerald-700 text-xs"
                 >
                   {language}
@@ -102,9 +102,9 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
           <h4 className="font-semibold text-emerald-800 text-sm">Skills</h4>
           <div className="flex flex-wrap gap-1">
             {displaySkills.slice(0, 3).map((skill) => (
-              <Badge 
-                key={skill} 
-                variant="secondary" 
+              <Badge
+                key={skill}
+                variant="secondary"
                 className="bg-emerald-100 text-emerald-700 text-xs"
               >
                 {skill}
