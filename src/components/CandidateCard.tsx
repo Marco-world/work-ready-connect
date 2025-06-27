@@ -29,12 +29,12 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
     <Card className="overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-100/30 max-w-md mx-auto">
       {/* Profile Image Section - Tall rectangle, sharp corners, fills header */}
       <CardHeader className="bg-emerald-600 text-white flex flex-col items-center px-0 pt-0 pb-6 relative">
-        <div className="w-full">
-          <Avatar className="w-full aspect-[4/2] rounded-none">
+        <div className="h-full">
+          <Avatar className="h-full aspect-[4/2] rounded-none">
             <AvatarImage
               src={candidate.avatarUrl}
               alt={candidate.name}
-              className="object-cover w-full h-full rounded-none"
+              className="object-cover h-full rounded-none"
             />
             <AvatarFallback className="bg-white text-emerald-600 font-bold text-6xl flex items-center justify-center w-full h-full rounded-none">
               {candidate.name.charAt(0)}
