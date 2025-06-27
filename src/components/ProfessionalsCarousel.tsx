@@ -5,7 +5,7 @@ import CandidateCard from "@/components/CandidateCard";
 const TRANSITION_DURATION = 500; // ms
 const EASING = "cubic-bezier(0.25,0.1,0.25,1)";
 const SWIPE_THRESHOLD = 50; // px
-const GAP_PX = 24; // 1.5rem gap between cards
+const GAP_PX = 2; // 1.5rem gap between cards
 
 const ProfessionalsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
