@@ -39,35 +39,35 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
         </Avatar>
       </div>
 
-      <CardContent className="p-6 pt-4 space-y-4">
+      <CardContent className="p-6 pt-4 space-y-3">
         {/* Name & Headline */}
         <div className="text-center">
           <h3 className="text-xl font-bold text-emerald-900">{candidate.name}</h3>
           <p className="text-emerald-700 text-sm">{candidate.headline}</p>
         </div>
 
-        {/* Experience as badge */}
+        {/* Experience as compact badge */}
         {candidate.experience && (
           <div className="flex justify-center">
-            <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 text-xs font-medium flex items-center gap-1">
+            <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 text-xs font-medium flex items-center gap-1">
               <Star className="h-3 w-3 text-emerald-500" />
               {candidate.experience}
             </Badge>
           </div>
         )}
 
-        {/* Location & Availability */}
-        <div className="flex items-center justify-center gap-3 text-xs text-gray-600">
+        {/* Location & Availability in one row */}
+        <div className="flex items-center justify-center gap-2 text-xs text-gray-600">
           <span className="flex items-center gap-1">
             <MapPin className="h-3 w-3 text-emerald-500" />
             {candidate.location}
           </span>
           {candidate.availability && (
             <>
-              <span className="text-emerald-300">|</span>
+              <span className="text-emerald-200">|</span>
               <span className="flex items-center gap-1">
                 <Star className="h-3 w-3 text-emerald-500" />
-                Available {candidate.availability}
+                <span>Available {candidate.availability}</span>
               </span>
             </>
           )}
@@ -90,23 +90,21 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
         )}
 
         {/* Skills */}
-        <div>
-          <div className="flex flex-wrap justify-center gap-1">
-            {displaySkills.slice(0, 3).map((skill) => (
-              <Badge
-                key={skill}
-                variant="secondary"
-                className="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5"
-              >
-                {skill}
-              </Badge>
-            ))}
-            {displaySkills.length > 3 && (
-              <Badge variant="outline" className="text-xs text-gray-500 px-2 py-0.5 border-emerald-200">
-                +{displaySkills.length - 3} more
-              </Badge>
-            )}
-          </div>
+        <div className="flex flex-wrap justify-center gap-1">
+          {displaySkills.slice(0, 3).map((skill) => (
+            <Badge
+              key={skill}
+              variant="secondary"
+              className="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5"
+            >
+              {skill}
+            </Badge>
+          ))}
+          {displaySkills.length > 3 && (
+            <Badge variant="outline" className="text-xs text-gray-500 px-2 py-0.5 border-emerald-200">
+              +{displaySkills.length - 3} more
+            </Badge>
+          )}
         </div>
 
         {/* Status & Profile Button */}
