@@ -26,20 +26,24 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
   );
 
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 bg-gradient-to-br from-emerald-50 to-emerald-100/30 max-w-md mx-auto">
-      {/* Profile Image Section - Avatar is much larger and visually dominant */}
-      <CardHeader className="bg-emerald-600 text-white flex flex-col items-center pt-10 pb-6 px-6 relative">
-        <div className="relative flex flex-col items-center w-full">
-          <Avatar className="h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 lg:h-64 lg:w-64 mx-auto ring-8 ring-white/30 shadow-lg z-10" /* 176px-256px */>
-            <AvatarImage src={candidate.avatarUrl} alt={candidate.name} className="object-cover" />
-            <AvatarFallback className="bg-white text-emerald-600 font-bold text-4xl">
+    <Card className="overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-100/30 max-w-md mx-auto">
+      {/* Profile Image Section - Tall rectangle, sharp corners, fills header */}
+      <CardHeader className="bg-emerald-600 text-white flex flex-col items-center px-0 pt-0 pb-6 relative">
+        <div className="w-full">
+          <Avatar className="w-full aspect-[4/2] rounded-none">
+            <AvatarImage
+              src={candidate.avatarUrl}
+              alt={candidate.name}
+              className="object-cover w-full h-full rounded-none"
+            />
+            <AvatarFallback className="bg-white text-emerald-600 font-bold text-6xl flex items-center justify-center w-full h-full rounded-none">
               {candidate.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <div className="mt-6 text-center w-full">
-            <h3 className="text-2xl font-bold text-white">{candidate.name}</h3>
-            <p className="text-emerald-100 font-medium text-base">{candidate.headline}</p>
-          </div>
+        </div>
+        <div className="w-full text-center pt-6 px-6">
+          <h3 className="text-2xl font-bold text-white">{candidate.name}</h3>
+          <p className="text-emerald-100 font-medium text-base">{candidate.headline}</p>
         </div>
       </CardHeader>
 
