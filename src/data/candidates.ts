@@ -15,10 +15,10 @@ export const candidates: Candidate[] = [
   {
     id: 1,
     name: "Maria Rodriguez",
-    avatarUrl: `https://i.pravatar.cc/400?img=31`,
+    avatarUrl: `https://i.pravatar.cc/450?img=31`,
     headline: "Certified Registered Nurse",
     skills: ["Patient Care", "Medication Management", "CPR Certified", "Compassionate Care"],
-    location: "Los Angeles, CA",
+    location: "Dubai, UAE",
     experience: "8 years",
     availability: "Full-time",
     languages: ["English", "Spanish"]
@@ -26,10 +26,10 @@ export const candidates: Candidate[] = [
   {
     id: 2,
     name: "Jennifer Kim",
-    avatarUrl: `https://i.pravatar.cc/400?img=44`,
+    avatarUrl: `https://i.pravatar.cc/450?img=44`,
     headline: "Professional Housekeeper",
     skills: ["Deep Cleaning", "Organization", "Eco-Friendly Products", "Attention to Detail"],
-    location: "Seattle, WA",
+    location: "AbuDhabi, UAE",
     experience: "5 years",
     availability: "Part-time",
     languages: ["English"]
@@ -37,10 +37,10 @@ export const candidates: Candidate[] = [
   {
     id: 3,
     name: "Sarah Johnson",
-    avatarUrl: `https://i.pravatar.cc/400?img=32`,
+    avatarUrl: `https://i.pravatar.cc/450?img=32`,
     headline: "Experienced Nanny & Childcare Provider",
     skills: ["Child Development", "Educational Activities", "First Aid", "Multilingual"],
-    location: "New York, NY",
+    location: "Doha, Qatar",
     experience: "6 years",
     availability: "Live-in",
     languages: ["English", "French"]
@@ -48,10 +48,10 @@ export const candidates: Candidate[] = [
   {
     id: 4,
     name: "Elena Popovic",
-    avatarUrl: `https://i.pravatar.cc/400?u=elena`,
+    avatarUrl: `https://i.pravatar.cc/450?u=elena`,
     headline: "Senior Home Care Assistant",
     skills: ["Elder Care", "Mobility Assistance", "Meal Preparation", "Companionship"],
-    location: "Miami, FL",
+    location: "Beirut, Lebanon",
     experience: "10 years",
     availability: "Full-time",
     languages: ["English", "Arabic"]
@@ -59,10 +59,10 @@ export const candidates: Candidate[] = [
   {
     id: 5,
     name: "Grace Williams",
-    avatarUrl: `https://i.pravatar.cc/400?u=grace`,
+    avatarUrl: `https://i.pravatar.cc/450?u=grace`,
     headline: "Certified Home Health Aide",
     skills: ["Personal Care", "Medical Equipment", "Physical Therapy Support", "Patient Advocacy"],
-    location: "Chicago, IL",
+    location: "Dubai, UAE",
     experience: "7 years",
     availability: "Part-time",
     languages: ["English"]
@@ -70,10 +70,10 @@ export const candidates: Candidate[] = [
   {
     id: 6,
     name: "Lisa Chen",
-    avatarUrl: `https://i.pravatar.cc/400?img=34`,
+    avatarUrl: `https://i.pravatar.cc/450?img=34`,
     headline: "Professional House Manager",
     skills: ["Household Management", "Staff Coordination", "Budget Management", "Event Planning"],
-    location: "San Francisco, CA",
+    location: "AbuDhabi, UAE",
     experience: "12 years",
     availability: "Full-time",
     languages: ["English", "Tagalog"]
