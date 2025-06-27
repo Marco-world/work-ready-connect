@@ -2,18 +2,20 @@ import { useState, useEffect, useRef } from "react";
 import { candidates } from "@/data/candidates";
 import CandidateCard from "@/components/CandidateCard";
 
-const TRANSITION_DURATION = 500; // ms
+const TRANSITION_DURATION = 300; // ms
 const EASING = "cubic-bezier(0.25,0.1,0.25,1)";
 const SWIPE_THRESHOLD = 50; // px
-const GAP_PX = 2; // 1.5rem gap between cards
+const VELOCITY_THRESHOLD = 0.3; // px/ms
 
 const ProfessionalsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
   const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [dragStartTime, setDragStartTime] = useState<number | null>(null);
   const [dragDelta, setDragDelta] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
+  const [bounce, setBounce] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Responsive cards per view
@@ -42,11 +44,34 @@ const ProfessionalsCarousel = () => {
     // eslint-disable-next-line
   }, [currentIndex, isDragging, cardsPerView]);
 
+  // Padding based on viewport
+  const getPadding = () => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth >= 1024) return 32;
+      if (window.innerWidth >= 768) return 24;
+    }
+    return 16;
+  };
+
+  // Calculate centering offset for grid
+  const getCenteringOffset = () => {
+    const padding = getPadding();
+    if (!containerRef.current) return `0px`;
+    const containerWidth = containerRef.current.offsetWidth - 2 * padding;
+    const gap = 24; // 1.5rem
+    const cardWidth = (containerWidth - gap * (cardsPerView - 1)) / cardsPerView;
+    // Center the active card(s) in the viewport
+    // Offset = (containerWidth - (cardsPerView * cardWidth + (cardsPerView-1)*gap)) / 2
+    // But since cardWidth is calculated as above, offset is just padding
+    return `${padding}px`;
+  };
+
   // Touch/Swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     if (transitioning) return;
     setIsDragging(true);
     setDragStartX(e.touches[0].clientX);
+    setDragStartTime(Date.now());
     setDragDelta(0);
   };
 
@@ -60,19 +85,32 @@ const ProfessionalsCarousel = () => {
     if (!isDragging || transitioning) return;
     setIsDragging(false);
 
-    if (dragDelta > SWIPE_THRESHOLD) {
-      handlePrev();
-    } else if (dragDelta < -SWIPE_THRESHOLD) {
-      handleNext();
+    const now = Date.now();
+    const velocity =
+      dragStartTime && now !== dragStartTime
+        ? dragDelta / (now - dragStartTime)
+        : 0;
+
+    if (
+      dragDelta > SWIPE_THRESHOLD ||
+      velocity > VELOCITY_THRESHOLD
+    ) {
+      triggerSwipe("prev");
+    } else if (
+      dragDelta < -SWIPE_THRESHOLD ||
+      velocity < -VELOCITY_THRESHOLD
+    ) {
+      triggerSwipe("next");
     } else {
       // Snap back if not enough swipe
-      setTransitioning(true);
+      setBounce(true);
       setTimeout(() => {
-        setTransitioning(false);
+        setBounce(false);
         setDragDelta(0);
       }, TRANSITION_DURATION);
     }
     setDragDelta(0);
+    setDragStartTime(null);
   };
 
   // Mouse drag support for desktop
@@ -80,6 +118,7 @@ const ProfessionalsCarousel = () => {
     if (transitioning) return;
     setIsDragging(true);
     setDragStartX(e.clientX);
+    setDragStartTime(Date.now());
     setDragDelta(0);
   };
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -91,23 +130,37 @@ const ProfessionalsCarousel = () => {
     if (!isDragging || transitioning) return;
     setIsDragging(false);
 
-    if (dragDelta > SWIPE_THRESHOLD) {
-      handlePrev();
-    } else if (dragDelta < -SWIPE_THRESHOLD) {
-      handleNext();
+    const now = Date.now();
+    const velocity =
+      dragStartTime && now !== dragStartTime
+        ? dragDelta / (now - dragStartTime)
+        : 0;
+
+    if (
+      dragDelta > SWIPE_THRESHOLD ||
+      velocity > VELOCITY_THRESHOLD
+    ) {
+      triggerSwipe("prev");
+    } else if (
+      dragDelta < -SWIPE_THRESHOLD ||
+      velocity < -VELOCITY_THRESHOLD
+    ) {
+      triggerSwipe("next");
     } else {
-      setTransitioning(true);
+      setBounce(true);
       setTimeout(() => {
-        setTransitioning(false);
+        setBounce(false);
         setDragDelta(0);
       }, TRANSITION_DURATION);
     }
     setDragDelta(0);
+    setDragStartTime(null);
   };
   const handleMouseLeave = () => {
     if (!isDragging) return;
     setIsDragging(false);
     setDragDelta(0);
+    setDragStartTime(null);
   };
 
   // Keyboard accessibility: left/right arrow
@@ -134,30 +187,38 @@ const ProfessionalsCarousel = () => {
     }, TRANSITION_DURATION);
   };
 
+  // Swipe trigger with edge bounce
+  const triggerSwipe = (direction: "next" | "prev") => {
+    if (direction === "next") {
+      handleNext();
+    } else if (direction === "prev") {
+      handlePrev();
+    }
+  };
+
   // Card width calculation
   const gapCount = cardsPerView - 1;
-  const cardWidthPercent = `calc((100% - ${gapCount} * ${GAP_PX}px) / ${cardsPerView})`;
+  const gap = 24; // px
+  const cardWidthPercent = `calc((100% - ${gapCount} * ${gap}px) / ${cardsPerView})`;
 
-  // Centering offset calculation
-  // Center the active card(s) in the viewport
-  const totalCards = candidates.length;
-  const centerIndex = Math.floor(cardsPerView / 2);
-  const offsetIndex = currentIndex - centerIndex;
-  // For infinite loop, allow negative/overflow indices
-  const getTranslateX = () => {
-    // The offset in px: (card width + gap) * offsetIndex
-    if (!containerRef.current) return 0;
-    const containerWidth = containerRef.current.offsetWidth;
-    const cardWidthPx = (containerWidth - gapCount * GAP_PX) / cardsPerView;
-    const totalGapPx = GAP_PX * offsetIndex;
-    // Drag delta in px
-    const dragPx = isDragging ? -dragDelta : 0;
-    return -(offsetIndex * (cardWidthPx + GAP_PX)) + dragPx;
+  // Centering offset calculation for transform
+  const getTransform = () => {
+    // Center the active card(s) in the viewport
+    const offset = getCenteringOffset();
+    const slideWidth = 100 / cardsPerView;
+    // Drag delta in percent of container width
+    const dragPercent =
+      isDragging && containerRef.current
+        ? (dragDelta / containerRef.current.offsetWidth) * 100
+        : 0;
+    // Bounce effect
+    const bouncePx = bounce ? (dragDelta > 0 ? 16 : -16) : 0;
+    return `translateX(calc(-${currentIndex * slideWidth}% + ${offset} + ${dragPercent}% + ${bouncePx}px))`;
   };
 
   return (
     <div
-      className="relative w-screen max-w-full overflow-hidden outline-none"
+      className="relative w-full overflow-hidden outline-none px-4 md:px-6 lg:px-8"
       tabIndex={0}
       onKeyDown={handleKeyDown}
       aria-label="Professionals carousel"
@@ -182,8 +243,8 @@ const ProfessionalsCarousel = () => {
           style={{
             '--n-cards': cardsPerView,
             '--n-gap': gapCount,
-            '--gap': `${GAP_PX}px`,
-            transform: `translateX(${getTranslateX()}px)`,
+            '--gap': `${gap}px`,
+            transform: getTransform(),
             transition: transitioning && !isDragging
               ? `transform ${TRANSITION_DURATION}ms ${EASING}`
               : "none",
