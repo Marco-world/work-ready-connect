@@ -1,13 +1,19 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { candidates } from "@/data/candidates";
 import CandidateCard from "@/components/CandidateCard";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+const TRANSITION_DURATION = 300; // ms
+const EASING = "cubic-bezier(0.25,0.1,0.25,1)";
+const SWIPE_THRESHOLD = 50; // px
 
 const ProfessionalsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [dragDelta, setDragDelta] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updateCardsPerView = () => {
@@ -25,22 +31,74 @@ const ProfessionalsCarousel = () => {
     return () => window.removeEventListener('resize', updateCardsPerView);
   }, []);
 
+  // Auto-rotation
   useEffect(() => {
+    if (isDragging) return;
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
+      handleNext();
     }, 4000);
-
     return () => clearInterval(timer);
-  }, []);
+    // eslint-disable-next-line
+  }, [currentIndex, isDragging, cardsPerView]);
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
+  // Touch/Swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (transitioning) return;
+    setIsDragging(true);
+    setDragStartX(e.touches[0].clientX);
+    setDragDelta(0);
   };
 
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => prevIndex === 0 ? candidates.length - 1 : prevIndex - 1);
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || transitioning || dragStartX === null) return;
+    const delta = e.touches[0].clientX - dragStartX;
+    setDragDelta(delta);
   };
 
+  const handleTouchEnd = () => {
+    if (!isDragging || transitioning) return;
+    setIsDragging(false);
+
+    if (dragDelta > SWIPE_THRESHOLD) {
+      handlePrev();
+    } else if (dragDelta < -SWIPE_THRESHOLD) {
+      handleNext();
+    } else {
+      // Snap back if not enough swipe
+      setTransitioning(true);
+      setTimeout(() => {
+        setTransitioning(false);
+        setDragDelta(0);
+      }, TRANSITION_DURATION);
+    }
+    setDragDelta(0);
+  };
+
+  // Keyboard accessibility: left/right arrow
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") handlePrev();
+    if (e.key === "ArrowRight") handleNext();
+  };
+
+  const handleNext = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
+      setTransitioning(false);
+    }, TRANSITION_DURATION);
+  };
+
+  const handlePrev = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? candidates.length - 1 : prevIndex - 1
+      );
+      setTransitioning(false);
+    }, TRANSITION_DURATION);
+  };
+
+  // Calculate visible candidates
   const getVisibleCandidates = () => {
     const visible = [];
     for (let i = 0; i < cardsPerView; i++) {
@@ -52,50 +110,63 @@ const ProfessionalsCarousel = () => {
 
   const visibleCandidates = getVisibleCandidates();
 
+  // Calculate translateX for sliding
+  const slideWidth = 100 / cardsPerView;
+  const translateX =
+    isDragging && dragDelta !== 0
+      ? -dragDelta / (containerRef.current?.offsetWidth || 1) * 100
+      : 0;
+
   return (
-    <div className="relative w-full">
-      <div className="overflow-hidden">
-        <div className="flex transition-all duration-500 ease-in-out gap-6">
-          {visibleCandidates.map((candidate, index) => (
-            <div 
-              key={`${candidate.id}-${currentIndex}-${index}`}
+    <div
+      className="relative w-full outline-none"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      aria-label="Professionals carousel"
+    >
+      <div
+        className="overflow-hidden"
+        ref={containerRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
+        role="region"
+        aria-roledescription="carousel"
+      >
+        <div
+          className="flex gap-6"
+          style={{
+            transition: transitioning && !isDragging
+              ? `transform ${TRANSITION_DURATION}ms ${EASING}`
+              : "none",
+            transform: `translateX(calc(-${currentIndex * slideWidth}% + ${translateX}%)`
+          }}
+        >
+          {candidates.map((candidate, index) => (
+            <div
+              key={`${candidate.id}-${index}`}
               className="flex-shrink-0"
-              style={{ width: `${100 / cardsPerView}%` }}
+              style={{ width: `${slideWidth}%` }}
+              tabIndex={-1}
             >
               <CandidateCard candidate={candidate} />
             </div>
           ))}
         </div>
       </div>
-      
-      {/* Navigation Buttons */}
-      <Button
-        variant="outline"
-        size="icon"
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg"
-        onClick={prevSlide}
-      >
-        <ChevronLeft className="h-4 w-4" />
-      </Button>
-      
-      <Button
-        variant="outline"
-        size="icon"
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg"
-        onClick={nextSlide}
-      >
-        <ChevronRight className="h-4 w-4" />
-      </Button>
-      
+
       {/* Indicators */}
       <div className="flex justify-center mt-6 gap-2">
         {candidates.map((_, index) => (
           <button
             key={index}
-            className={`w-3 h-3 rounded-full transition-all ${
+            className={`w-3 h-3 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary ${
               index === currentIndex ? 'bg-primary w-8' : 'bg-primary/30'
             }`}
             onClick={() => setCurrentIndex(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={index === currentIndex}
           />
         ))}
       </div>
