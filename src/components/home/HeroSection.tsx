@@ -73,40 +73,6 @@ const HeroSection = () => {
           </div>
         </div>
       </section>
-      
-      {/* Statistics Section */}
-      <section className="py-16 bg-gradient-to-r from-secondary to-secondary/80">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="animate-fade-in">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-                15+
-              </div>
-              <p className="text-lg text-muted-foreground font-medium">
-                Countries Served
-              </p>
-            </div>
-            
-            <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-                25+
-              </div>
-              <p className="text-lg text-muted-foreground font-medium">
-                Languages Supported
-              </p>
-            </div>
-            
-            <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-                1000+
-              </div>
-              <p className="text-lg text-muted-foreground font-medium">
-                Trusted Household workers
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 };
