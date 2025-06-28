@@ -24,9 +24,9 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
   );
 
   return (
-    <Card className="bg-white border border-emerald-100 rounded-xl overflow-hidden max-w-md mx-auto p-0">
+    <Card className="bg-white border border-blue-200 hover:border-blue-300 focus:border-blue-400 border-emerald-100 rounded-xl overflow-hidden max-w-md mx-auto p-0 transition-colors">
       {/* Avatar: 3:1, bleeds to edges */}
-      <div className="w-full" style={{ aspectRatio: "1 / 1.5" }}>
+      <div className="w-full" style={{ aspectRatio: "1 / 1.3" }}>
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
             src={candidate.avatarUrl}
