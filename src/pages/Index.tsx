@@ -1,8 +1,8 @@
 
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/home/HeroSection";
-import FeaturesSection from "@/components/home/FeaturesSection";
 import ProfessionalsSection from "@/components/home/ProfessionalsSection";
+import FeaturesSection from "@/components/home/FeaturesSection";
 import CareServicesSection from "@/components/home/CareServicesSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
 import BottomCTASection from "@/components/home/BottomCTASection";
@@ -12,8 +12,8 @@ const Index = () => {
     <div className="flex flex-col">
       <main className="flex-grow">
         <HeroSection />
-        <FeaturesSection />
         <ProfessionalsSection />
+        <FeaturesSection />
         <CareServicesSection />
         <HowItWorksSection />
         <BottomCTASection />
