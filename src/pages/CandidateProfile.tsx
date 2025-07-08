@@ -1,6 +1,6 @@
-
 import { useParams, Link } from "react-router-dom";
-import { candidates } from "@/data/candidates";
+import { useEffect, useState } from "react";
+import { fetchCandidates, Candidate } from "@/data/candidates";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import ProfileHeader from "@/components/profile/ProfileHeader";
@@ -14,7 +14,25 @@ import ContactActions from "@/components/profile/ContactActions";
 
 const CandidateProfile = () => {
   const { id } = useParams();
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCandidates().then(data => {
+      setCandidates(data);
+      setLoading(false);
+    });
+  }, []);
+
   const candidate = candidates.find(c => c.id === parseInt(id || '0'));
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50/50 via-background to-emerald-100/30">
+        <div className="text-center text-emerald-700 text-lg font-semibold">Loading profile...</div>
+      </div>
+    );
+  }
 
   if (!candidate) {
     return (
