@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { fetchCandidates, Candidate } from "@/data/candidates";
+import { candidates } from "@/data/candidates";
 import CandidateCard from "@/components/CandidateCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,11 +8,6 @@ import { Button } from "@/components/ui/button";
 const ProfessionalsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
-
-  useEffect(() => {
-    fetchCandidates().then(setCandidates);
-  }, []);
 
   useEffect(() => {
     const updateCardsPerView = () => {
@@ -30,13 +26,12 @@ const ProfessionalsCarousel = () => {
   }, []);
 
   useEffect(() => {
-    if (candidates.length === 0) return;
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
     }, 4000);
 
     return () => clearInterval(timer);
-  }, [candidates.length]);
+  }, []);
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
@@ -63,11 +58,11 @@ const ProfessionalsCarousel = () => {
         <div className="flex transition-all duration-500 ease-in-out gap-6">
           {visibleCandidates.map((candidate, index) => (
             <div 
-              key={`${candidate?.id}-${currentIndex}-${index}`}
+              key={`${candidate.id}-${currentIndex}-${index}`}
               className="flex-shrink-0"
               style={{ width: `${100 / cardsPerView}%` }}
             >
-              {candidate && <CandidateCard candidate={candidate} />}
+              <CandidateCard candidate={candidate} />
             </div>
           ))}
         </div>
@@ -79,7 +74,6 @@ const ProfessionalsCarousel = () => {
         size="icon"
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg"
         onClick={prevSlide}
-        disabled={candidates.length === 0}
       >
         <ChevronLeft className="h-4 w-4" />
       </Button>
@@ -89,7 +83,6 @@ const ProfessionalsCarousel = () => {
         size="icon"
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg"
         onClick={nextSlide}
-        disabled={candidates.length === 0}
       >
         <ChevronRight className="h-4 w-4" />
       </Button>
@@ -103,7 +96,6 @@ const ProfessionalsCarousel = () => {
               index === currentIndex ? 'bg-primary w-8' : 'bg-primary/30'
             }`}
             onClick={() => setCurrentIndex(index)}
-            disabled={candidates.length === 0}
           />
         ))}
       </div>

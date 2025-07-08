@@ -1,5 +1,6 @@
-import { fetchCandidates, Candidate } from "@/data/candidates";
-import { useState, useEffect } from "react";
+
+import { candidates } from "@/data/candidates";
+import { useState } from "react";
 import TalentHeader from "@/components/talent/TalentHeader";
 import TalentBenefits from "@/components/talent/TalentBenefits";
 import TalentFilters from "@/components/talent/TalentFilters";
@@ -9,28 +10,17 @@ import TalentResults from "@/components/talent/TalentResults";
 const Talent = () => {
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchCandidates().then(data => {
-      setCandidates(data);
-      setLoading(false);
-    });
-  }, []);
 
   // Filter candidates based on selected filters
   const filteredCandidates = candidates.filter(candidate => {
-    const languageMatch =
-      selectedLanguages.length === 0 ||
-      selectedLanguages.some(lang =>
+    const languageMatch = selectedLanguages.length === 0 || 
+      selectedLanguages.some(lang => 
         candidate.languages?.includes(lang)
       );
-
-    const skillMatch =
-      selectedSkills.length === 0 ||
-      selectedSkills.some(skill =>
-        candidate.skills.some(candidateSkill =>
+    
+    const skillMatch = selectedSkills.length === 0 || 
+      selectedSkills.some(skill => 
+        candidate.skills.some(candidateSkill => 
           candidateSkill.toLowerCase().includes(skill.toLowerCase())
         )
       );
@@ -64,7 +54,7 @@ const Talent = () => {
       <div className="container py-12">
         <TalentHeader />
         <TalentBenefits />
-        <TalentFilters
+        <TalentFilters 
           selectedLanguages={selectedLanguages}
           selectedSkills={selectedSkills}
           onLanguageChange={handleLanguageChange}
@@ -73,10 +63,9 @@ const Talent = () => {
           filteredCount={filteredCandidates.length}
         />
         <TalentCareTypes />
-        <TalentResults
+        <TalentResults 
           filteredCandidates={filteredCandidates}
           onResetFilters={resetFilters}
-          loading={loading}
         />
       </div>
     </div>
