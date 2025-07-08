@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 
 export interface Candidate {
   id: number;
@@ -11,71 +12,17 @@ export interface Candidate {
   languages?: string[];
 }
 
-export const candidates: Candidate[] = [
-  {
-    id: 1,
-    name: "Maria Rodriguez",
-    avatarUrl: `https://i.pravatar.cc/450?img=31`,
-    headline: "Certified Registered Nurse",
-    skills: ["Patient Care", "Medication Management", "CPR Certified", "Compassionate Care"],
-    location: "Dubai, UAE",
-    experience: "8 years",
-    availability: "Full-time",
-    languages: ["English", "Spanish"]
-  },
-  {
-    id: 2,
-    name: "Jennifer Kim",
-    avatarUrl: `https://i.pravatar.cc/450?img=44`,
-    headline: "Professional Housekeeper",
-    skills: ["Deep Cleaning", "Organization", "Eco-Friendly Products", "Attention to Detail"],
-    location: "AbuDhabi, UAE",
-    experience: "5 years",
-    availability: "Part-time",
-    languages: ["English"]
-  },
-  {
-    id: 3,
-    name: "Sarah Johnson",
-    avatarUrl: `https://i.pravatar.cc/450?img=32`,
-    headline: "Experienced Nanny & Childcare Provider",
-    skills: ["Child Development", "Educational Activities", "First Aid", "Multilingual"],
-    location: "Doha, Qatar",
-    experience: "6 years",
-    availability: "Live-in",
-    languages: ["English", "French"]
-  },
-  {
-    id: 4,
-    name: "Elena Popovic",
-    avatarUrl: `https://i.pravatar.cc/450?u=elena`,
-    headline: "Senior Home Care Assistant",
-    skills: ["Elder Care", "Mobility Assistance", "Meal Preparation", "Companionship"],
-    location: "Beirut, Lebanon",
-    experience: "10 years",
-    availability: "Full-time",
-    languages: ["English", "Arabic"]
-  },
-  {
-    id: 5,
-    name: "Grace Williams",
-    avatarUrl: `https://i.pravatar.cc/450?u=grace`,
-    headline: "Certified Home Health Aide",
-    skills: ["Personal Care", "Medical Equipment", "Physical Therapy Support", "Patient Advocacy"],
-    location: "Dubai, UAE",
-    experience: "7 years",
-    availability: "Part-time",
-    languages: ["English"]
-  },
-  {
-    id: 6,
-    name: "Lisa Chen",
-    avatarUrl: `https://i.pravatar.cc/450?img=34`,
-    headline: "Professional House Manager",
-    skills: ["Household Management", "Staff Coordination", "Budget Management", "Event Planning"],
-    location: "AbuDhabi, UAE",
-    experience: "12 years",
-    availability: "Full-time",
-    languages: ["English", "Tagalog"]
-  },
-];
+// Instanciez votre client Supabase
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+export const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Fonction pour récupérer les candidats depuis la table "Caregivers"
+export async function fetchCandidates(): Promise<Candidate[]> {
+  const { data, error } = await supabase
+    .from("Caregivers")
+    .select("*");
+  if (error) throw error;
+  // Adaptez ici si vos champs sont différents ou à transformer (ex: skills/langages en array)
+  return data as Candidate[];
+}

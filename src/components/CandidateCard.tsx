@@ -1,4 +1,4 @@
-import { Candidate } from "@/data/candidates";
+import { fetchCandidates, Candidate } from "@/data/candidates";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
