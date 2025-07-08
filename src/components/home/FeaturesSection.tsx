@@ -1,75 +1,83 @@
-
 import { Shield, Heart, Users } from "lucide-react";
 
 const FeaturesSection = () => {
   return (
-    <section className="py-16 bg-gradient-to-br from-purple-500 via-purple-600 to-indigo-600 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
-      </div>
-
-      <div className="container relative z-10">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">
-            Why Families Choose CareLink
-          </h2>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-            Discover the CareLink difference: safety, compassion, and the perfect match for your home
-          </p>
+    <section className="bg-slate-50 py-12">
+      <div className="container">
+        {/* --- Statistics & Narrative --- */}
+        <div className="mb-12">
+          <div className="text-center mb-6 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-2">
+              Trusted by Families Worldwide
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              A global network of care — connecting households with reliable, compassionate Household workers.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="animate-fade-in">
+              <div className="text-5xl md:text-6xl font-bold text-primary mb-2 transition-all duration-700">
+                15+
+              </div>
+              <p className="text-base md:text-lg text-muted-foreground font-medium">
+                Countries Served
+              </p>
+            </div>
+            <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="text-5xl md:text-6xl font-bold text-primary mb-2 transition-all duration-700">
+                25+
+              </div>
+              <p className="text-base md:text-lg text-muted-foreground font-medium">
+                Languages Supported
+              </p>
+            </div>
+            <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <div className="text-5xl md:text-6xl font-bold text-primary mb-2 transition-all duration-700">
+                1000+
+              </div>
+              <p className="text-base md:text-lg text-muted-foreground font-medium">
+                Trusted Household workers
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="group hover:transform hover:scale-105 transition-all duration-300">
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl p-8 text-center shadow-2xl border border-white/20 h-full">
-              <div className="flex justify-center mb-6">
-                <div className="p-4 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full shadow-lg">
-                  <Shield className="h-8 w-8 text-white" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent mb-4">
-                Verified & Trusted
-              </h3>
-              <p className="text-gray-700 leading-relaxed">
-                Every Household worker is background-checked and reference-verified for your peace of mind. 
-                We ensure only the most trustworthy professionals join our network.
-              </p>
+        {/* --- Features --- */}
+        <div className="text-center mb-8 animate-fade-in">
+          <h3 className="text-2xl md:text-3xl font-bold text-emerald-900">
+            Why Families Choose CareLink
+          </h3>
+          <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
+            Discover the CareLink difference: safety, compassion, and the perfect match for your home.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="p-4 hover-scale">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground mx-auto mb-4">
+              <Shield className="h-6 w-6" />
             </div>
+            <h4 className="text-lg font-semibold text-emerald-900">Verified & Trusted</h4>
+            <p className="mt-2 text-muted-foreground text-sm">
+              Every Household worker is background-checked and reference-verified for your peace of mind.
+            </p>
           </div>
-
-          <div className="group hover:transform hover:scale-105 transition-all duration-300">
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl p-8 text-center shadow-2xl border border-white/20 h-full">
-              <div className="flex justify-center mb-6">
-                <div className="p-4 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full shadow-lg">
-                  <Heart className="h-8 w-8 text-white" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-4">
-                Compassionate Care
-              </h3>
-              <p className="text-gray-700 leading-relaxed">
-                We select Household workers not just for their skills, but for their genuine empathy and kindness. 
-                Your family deserves care that comes from the heart.
-              </p>
+          <div className="p-4 hover-scale">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground mx-auto mb-4">
+              <Heart className="h-6 w-6" />
             </div>
+            <h4 className="text-lg font-semibold text-emerald-900">Compassionate Care</h4>
+            <p className="mt-2 text-muted-foreground text-sm">
+              We select Household workers for their skills and their genuine empathy and kindness.
+            </p>
           </div>
-
-          <div className="group hover:transform hover:scale-105 transition-all duration-300">
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl p-8 text-center shadow-2xl border border-white/20 h-full">
-              <div className="flex justify-center mb-6">
-                <div className="p-4 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full shadow-lg">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
-                Perfect Matches
-              </h3>
-              <p className="text-gray-700 leading-relaxed">
-                We match you with Household workers based on your unique needs, preferences, and family dynamics. 
-                Find the perfect fit for your home.
-              </p>
+          <div className="p-4 hover-scale">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground mx-auto mb-4">
+              <Users className="h-6 w-6" />
             </div>
+            <h4 className="text-lg font-semibold text-emerald-900">Perfect Matches</h4>
+            <p className="mt-2 text-muted-foreground text-sm">
+              We match you with Household workers based on your unique needs and preferences.
+            </p>
           </div>
         </div>
       </div>

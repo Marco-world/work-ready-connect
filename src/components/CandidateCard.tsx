@@ -25,15 +25,15 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
 
   return (
     <Card className="bg-white border border-blue-200 hover:border-blue-300 focus:border-blue-400 border-emerald-100 rounded-xl overflow-hidden max-w-md mx-auto p-0 transition-colors">
-      {/* Enhanced Avatar: Larger and better centered */}
-      <div className="w-full flex justify-center items-center bg-gradient-to-br from-emerald-50 to-blue-50 p-4" style={{ aspectRatio: "1 / 1" }}>
-        <Avatar className="h-40 w-40 border-4 border-white shadow-lg">
+      {/* Avatar: 3:1, bleeds to edges */}
+      <div className="w-full" style={{ aspectRatio: "1 / 1.3" }}>
+        <Avatar className="w-full h-full rounded-none">
           <AvatarImage
             src={candidate.avatarUrl}
             alt={candidate.name}
-            className="object-cover w-full h-full bg-gray-100"
+            className="object-cover w-full h-full rounded-none bg-gray-100"
           />
-          <AvatarFallback className="bg-white text-emerald-600 font-bold text-6xl flex items-center justify-center">
+          <AvatarFallback className="bg-white text-emerald-600 font-bold text-5xl flex items-center justify-center w-full h-full rounded-none">
             {candidate.name.charAt(0)}
           </AvatarFallback>
         </Avatar>

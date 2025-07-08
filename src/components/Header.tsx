@@ -43,8 +43,29 @@ const Header = () => {
   };
 
   const getActionButtons = () => {
-    if (isApplicantFlow || isClientFlow) {
-      return null; // Remove redundant buttons in portal pages
+    if (isApplicantFlow) {
+      return (
+        <div className="hidden md:flex items-center gap-4">
+          <Button variant="outline" asChild className="hover-scale border-primary text-primary hover:bg-primary/10">
+            <Link to="/">
+              <Users className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
+    }
+    if (isClientFlow) {
+      return (
+        <div className="hidden md:flex items-center gap-4">
+          <Button variant="outline" asChild className="hover-scale border-emerald-600 text-emerald-600 hover:bg-emerald-50">
+            <Link to="/">
+              <Heart className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
     }
     return (
       <div className="hidden md:flex items-center gap-4">
@@ -65,8 +86,29 @@ const Header = () => {
   };
 
   const getMobileButtons = () => {
-    if (isApplicantFlow || isClientFlow) {
-      return null; // Remove redundant buttons in portal pages
+    if (isApplicantFlow) {
+      return (
+        <div className="flex flex-col gap-4">
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Users className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
+    }
+    if (isClientFlow) {
+      return (
+        <div className="flex flex-col gap-4">
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Heart className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      );
     }
     return (
       <div className="flex flex-col gap-4">
