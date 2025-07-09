@@ -1,10 +1,10 @@
 
-import { Candidate } from "@/data/candidates";
+import { CaregiverWithCareTypes } from "@/hooks/useCaregivers";
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
 
 interface ContactActionsProps {
-  candidate: Candidate;
+  candidate: CaregiverWithCareTypes;
 }
 
 const ContactActions = ({ candidate }: ContactActionsProps) => {

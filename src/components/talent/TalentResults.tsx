@@ -1,10 +1,10 @@
 
 import { Heart } from "lucide-react";
 import CandidateCard from "@/components/CandidateCard";
-import { Candidate } from "@/data/candidates";
+import { CaregiverWithCareTypes } from "@/hooks/useCaregivers";
 
 interface TalentResultsProps {
-  filteredCandidates: Candidate[];
+  filteredCandidates: CaregiverWithCareTypes[];
   onResetFilters: () => void;
 }
 
