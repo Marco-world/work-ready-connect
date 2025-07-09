@@ -1,11 +1,12 @@
 
 import { useState, useEffect } from "react";
-import { candidates } from "@/data/candidates";
 import CandidateCard from "@/components/CandidateCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCaregivers } from "@/hooks/useCaregivers";
 
 const ProfessionalsCarousel = () => {
+  const { data: caregivers = [], isLoading } = useCaregivers();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
 
@@ -26,43 +27,61 @@ const ProfessionalsCarousel = () => {
   }, []);
 
   useEffect(() => {
+    if (caregivers.length === 0) return;
+    
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % caregivers.length);
     }, 4000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [caregivers.length]);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % candidates.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % caregivers.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => prevIndex === 0 ? candidates.length - 1 : prevIndex - 1);
+    setCurrentIndex((prevIndex) => prevIndex === 0 ? caregivers.length - 1 : prevIndex - 1);
   };
 
-  const getVisibleCandidates = () => {
+  const getVisibleCaregivers = () => {
     const visible = [];
     for (let i = 0; i < cardsPerView; i++) {
-      const index = (currentIndex + i) % candidates.length;
-      visible.push(candidates[index]);
+      const index = (currentIndex + i) % caregivers.length;
+      visible.push(caregivers[index]);
     }
     return visible;
   };
 
-  const visibleCandidates = getVisibleCandidates();
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-lg text-emerald-600">Loading professionals...</div>
+      </div>
+    );
+  }
+
+  if (caregivers.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-lg text-gray-500">No professionals available</div>
+      </div>
+    );
+  }
+
+  const visibleCaregivers = getVisibleCaregivers();
 
   return (
     <div className="relative w-full">
       <div className="overflow-hidden">
         <div className="flex transition-all duration-500 ease-in-out gap-6">
-          {visibleCandidates.map((candidate, index) => (
+          {visibleCaregivers.map((caregiver, index) => (
             <div 
-              key={`${candidate.id}-${currentIndex}-${index}`}
+              key={`${caregiver.id}-${currentIndex}-${index}`}
               className="flex-shrink-0"
               style={{ width: `${100 / cardsPerView}%` }}
             >
-              <CandidateCard candidate={candidate} />
+              <CandidateCard candidate={caregiver} />
             </div>
           ))}
         </div>
@@ -89,7 +108,7 @@ const ProfessionalsCarousel = () => {
       
       {/* Indicators */}
       <div className="flex justify-center mt-6 gap-2">
-        {candidates.map((_, index) => (
+        {caregivers.map((_, index) => (
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-all ${

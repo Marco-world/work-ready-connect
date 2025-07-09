@@ -33,13 +33,9 @@ const ApplicantDetails = () => {
             <span className="text-gray-600 font-medium">Marital Status:</span>
             <span className="block text-gray-800">Single</span>
           </div>
-          <div>
+          <div className="col-span-2">
             <span className="text-gray-600 font-medium">Employment Type:</span>
             <span className="block text-gray-800">Full-time</span>
-          </div>
-          <div>
-            <span className="text-gray-600 font-medium">Salary:</span>
-            <span className="block text-gray-800">$2,500/month</span>
           </div>
         </div>
       </CardContent>

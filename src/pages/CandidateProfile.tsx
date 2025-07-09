@@ -1,6 +1,5 @@
 
 import { useParams, Link } from "react-router-dom";
-import { candidates } from "@/data/candidates";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import ProfileHeader from "@/components/profile/ProfileHeader";
@@ -11,12 +10,21 @@ import Languages from "@/components/profile/Languages";
 import VisaStatus from "@/components/profile/VisaStatus";
 import Experience from "@/components/profile/Experience";
 import ContactActions from "@/components/profile/ContactActions";
+import { useCaregiver } from "@/hooks/useCaregivers";
 
 const CandidateProfile = () => {
   const { id } = useParams();
-  const candidate = candidates.find(c => c.id === parseInt(id || '0'));
+  const { data: candidate, isLoading, error } = useCaregiver(id || '');
 
-  if (!candidate) {
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50/50 via-background to-emerald-100/30 flex items-center justify-center">
+        <div className="text-lg text-emerald-600">Loading profile...</div>
+      </div>
+    );
+  }
+
+  if (error || !candidate) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-emerald-50/50 via-background to-emerald-100/30 flex items-center justify-center">
         <div className="text-center">

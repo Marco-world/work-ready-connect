@@ -1,35 +1,24 @@
-import { Candidate } from "@/data/candidates";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Star, Languages } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CaregiverWithCareTypes } from "@/hooks/useCaregivers";
 
 interface CandidateCardProps {
-  candidate: Candidate;
+  candidate: CaregiverWithCareTypes;
 }
 
-const STANDARDIZED_SKILLS = [
-  "Cleaning", "Washing", "Ironing", "Baby Sitting", "New Born Care",
-  "Decorating", "Housekeeping", "Household worker", "Old Person Care", "Cooking", "Driving"
-];
-
 const CandidateCard = ({ candidate }: CandidateCardProps) => {
-  const displaySkills = candidate.skills.filter(skill =>
-    STANDARDIZED_SKILLS.some(standardSkill =>
-      skill.toLowerCase().includes(standardSkill.toLowerCase()) ||
-      standardSkill.toLowerCase().includes(skill.toLowerCase())
-    )
-  );
-
   return (
     <Card className="bg-white border border-blue-200 hover:border-blue-300 focus:border-blue-400 border-emerald-100 rounded-xl overflow-hidden max-w-md mx-auto p-0 transition-colors">
       {/* Avatar: 3:1, bleeds to edges */}
       <div className="w-full" style={{ aspectRatio: "1 / 1.3" }}>
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
-            src={candidate.avatarUrl}
+            src={candidate.avatar_url || ''}
             alt={candidate.name}
             className="object-cover w-full h-full rounded-none bg-gray-100"
           />
@@ -40,10 +29,19 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
       </div>
 
       <CardContent className="p-6 pt-4 space-y-3">
-        {/* Name & Headline */}
+        {/* Name & Care Types */}
         <div className="text-center">
           <h3 className="text-xl font-bold text-emerald-900">{candidate.name}</h3>
-          <p className="text-emerald-700 text-sm">{candidate.headline}</p>
+          <div className="flex flex-wrap justify-center gap-1 mt-2">
+            {candidate.care_types.map((careType) => (
+              <Badge
+                key={careType}
+                className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 text-xs font-medium"
+              >
+                {careType}
+              </Badge>
+            ))}
+          </div>
         </div>
 
         {/* Experience as compact badge */}
@@ -70,40 +68,6 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
                 <span>Available {candidate.availability}</span>
               </span>
             </>
-          )}
-        </div>
-
-        {/* Languages */}
-        {candidate.languages && candidate.languages.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-1">
-            <Languages className="h-3 w-3 text-emerald-500 mr-1" />
-            {candidate.languages.map((language) => (
-              <Badge
-                key={language}
-                variant="outline"
-                className="border-emerald-200 text-emerald-700 text-xs px-2 py-0.5"
-              >
-                {language}
-              </Badge>
-            ))}
-          </div>
-        )}
-
-        {/* Skills */}
-        <div className="flex flex-wrap justify-center gap-1">
-          {displaySkills.slice(0, 3).map((skill) => (
-            <Badge
-              key={skill}
-              variant="secondary"
-              className="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5"
-            >
-              {skill}
-            </Badge>
-          ))}
-          {displaySkills.length > 3 && (
-            <Badge variant="outline" className="text-xs text-gray-500 px-2 py-0.5 border-emerald-200">
-              +{displaySkills.length - 3} more
-            </Badge>
           )}
         </div>
 
