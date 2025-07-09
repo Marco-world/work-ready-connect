@@ -55,12 +55,12 @@ const CandidateProfile = () => {
         <ProfileHeader candidate={candidate} />
 
         <div className="grid md:grid-cols-2 gap-8">
-          <ApplicantDetails />
+          <ApplicantDetails candidate={candidate} />
           <SkillsDisplay candidate={candidate} />
-          <Education />
-          <Languages />
-          <VisaStatus />
-          <Experience />
+          <Education candidate={candidate} />
+          <Languages candidate={candidate} />
+          <VisaStatus candidate={candidate} />
+          <Experience candidate={candidate} />
         </div>
 
         <ContactActions candidate={candidate} />

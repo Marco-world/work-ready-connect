@@ -1,7 +1,20 @@
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CaregiverWithCareTypes } from "@/hooks/useCaregivers";
 
-const VisaStatus = () => {
+interface VisaStatusProps {
+  candidate: CaregiverWithCareTypes;
+}
+
+const VisaStatus = ({ candidate }: VisaStatusProps) => {
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return 'Not specified';
+    return new Date(dateString).toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long' 
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -11,11 +24,11 @@ const VisaStatus = () => {
         <div className="space-y-2 text-sm">
           <div>
             <span className="text-gray-600 font-medium">Visa Status:</span>
-            <span className="block text-gray-800">Valid Work Permit</span>
+            <span className="block text-gray-800">{candidate.visa_status || 'Not specified'}</span>
           </div>
           <div>
             <span className="text-gray-600 font-medium">Visa Expiry:</span>
-            <span className="block text-gray-800">December 2025</span>
+            <span className="block text-gray-800">{formatDate(candidate.visa_expiry)}</span>
           </div>
         </div>
       </CardContent>

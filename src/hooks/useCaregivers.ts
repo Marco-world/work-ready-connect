@@ -2,6 +2,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export interface CaregiverLanguage {
+  id: string;
+  language: string;
+  proficiency_level: string;
+}
+
+export interface CaregiverExperience {
+  id: string;
+  country: string;
+  start_date: string | null;
+  end_date: string | null;
+  job_details: string | null;
+}
+
 export interface CaregiverWithCareTypes {
   id: string;
   name: string;
@@ -12,6 +26,19 @@ export interface CaregiverWithCareTypes {
   bio: string | null;
   portfolio_url: string | null;
   care_types: string[];
+  // New fields
+  age: number | null;
+  nationality: string | null;
+  religion: string | null;
+  day_off: string | null;
+  marital_status: string | null;
+  employment_type: string | null;
+  education_level: string | null;
+  education_details: string | null;
+  visa_status: string | null;
+  visa_expiry: string | null;
+  languages: CaregiverLanguage[];
+  experiences: CaregiverExperience[];
 }
 
 export const useCaregivers = () => {
@@ -29,10 +56,32 @@ export const useCaregivers = () => {
           availability,
           bio,
           portfolio_url,
+          age,
+          nationality,
+          religion,
+          day_off,
+          marital_status,
+          employment_type,
+          education_level,
+          education_details,
+          visa_status,
+          visa_expiry,
           caregiver_care_services (
             care_services (
               name
             )
+          ),
+          caregiver_languages (
+            id,
+            language,
+            proficiency_level
+          ),
+          caregiver_experiences (
+            id,
+            country,
+            start_date,
+            end_date,
+            job_details
           )
         `);
 
@@ -44,7 +93,9 @@ export const useCaregivers = () => {
         ...caregiver,
         care_types: caregiver.caregiver_care_services.map(
           (ccs: any) => ccs.care_services.name
-        )
+        ),
+        languages: caregiver.caregiver_languages || [],
+        experiences: caregiver.caregiver_experiences || []
       }));
     },
   });
@@ -65,10 +116,32 @@ export const useCaregiver = (id: string) => {
           availability,
           bio,
           portfolio_url,
+          age,
+          nationality,
+          religion,
+          day_off,
+          marital_status,
+          employment_type,
+          education_level,
+          education_details,
+          visa_status,
+          visa_expiry,
           caregiver_care_services (
             care_services (
               name
             )
+          ),
+          caregiver_languages (
+            id,
+            language,
+            proficiency_level
+          ),
+          caregiver_experiences (
+            id,
+            country,
+            start_date,
+            end_date,
+            job_details
           )
         `)
         .eq('id', id)
@@ -82,7 +155,9 @@ export const useCaregiver = (id: string) => {
         ...caregiver,
         care_types: caregiver.caregiver_care_services.map(
           (ccs: any) => ccs.care_services.name
-        )
+        ),
+        languages: caregiver.caregiver_languages || [],
+        experiences: caregiver.caregiver_experiences || []
       } as CaregiverWithCareTypes;
     },
   });

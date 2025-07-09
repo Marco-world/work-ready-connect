@@ -128,6 +128,76 @@ export type Database = {
           },
         ]
       }
+      caregiver_experiences: {
+        Row: {
+          caregiver_id: string
+          country: string
+          created_at: string | null
+          end_date: string | null
+          id: string
+          job_details: string | null
+          start_date: string | null
+        }
+        Insert: {
+          caregiver_id: string
+          country: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          job_details?: string | null
+          start_date?: string | null
+        }
+        Update: {
+          caregiver_id?: string
+          country?: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          job_details?: string | null
+          start_date?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "caregiver_experiences_caregiver_id_fkey"
+            columns: ["caregiver_id"]
+            isOneToOne: false
+            referencedRelation: "caregivers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      caregiver_languages: {
+        Row: {
+          caregiver_id: string
+          created_at: string | null
+          id: string
+          language: string
+          proficiency_level: string
+        }
+        Insert: {
+          caregiver_id: string
+          created_at?: string | null
+          id?: string
+          language: string
+          proficiency_level: string
+        }
+        Update: {
+          caregiver_id?: string
+          created_at?: string | null
+          id?: string
+          language?: string
+          proficiency_level?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "caregiver_languages_caregiver_id_fkey"
+            columns: ["caregiver_id"]
+            isOneToOne: false
+            referencedRelation: "caregivers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       caregiver_skills: {
         Row: {
           caregiver_id: string | null
@@ -163,43 +233,73 @@ export type Database = {
       }
       caregivers: {
         Row: {
+          age: number | null
           availability: string | null
           avatar_url: string | null
           bio: string | null
           created_at: string | null
+          day_off: string | null
+          education_details: string | null
+          education_level: string | null
+          employment_type: string | null
           experience: string | null
           headline: string
           id: string
           location: string
+          marital_status: string | null
           name: string
+          nationality: string | null
           portfolio_url: string | null
+          religion: string | null
           updated_at: string | null
+          visa_expiry: string | null
+          visa_status: string | null
         }
         Insert: {
+          age?: number | null
           availability?: string | null
           avatar_url?: string | null
           bio?: string | null
           created_at?: string | null
+          day_off?: string | null
+          education_details?: string | null
+          education_level?: string | null
+          employment_type?: string | null
           experience?: string | null
           headline: string
           id?: string
           location: string
+          marital_status?: string | null
           name: string
+          nationality?: string | null
           portfolio_url?: string | null
+          religion?: string | null
           updated_at?: string | null
+          visa_expiry?: string | null
+          visa_status?: string | null
         }
         Update: {
+          age?: number | null
           availability?: string | null
           avatar_url?: string | null
           bio?: string | null
           created_at?: string | null
+          day_off?: string | null
+          education_details?: string | null
+          education_level?: string | null
+          employment_type?: string | null
           experience?: string | null
           headline?: string
           id?: string
           location?: string
+          marital_status?: string | null
           name?: string
+          nationality?: string | null
           portfolio_url?: string | null
+          religion?: string | null
           updated_at?: string | null
+          visa_expiry?: string | null
+          visa_status?: string | null
         }
         Relationships: []
       }
