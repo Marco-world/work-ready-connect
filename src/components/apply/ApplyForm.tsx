@@ -21,6 +21,7 @@ import SkillsSelector from "./SkillsSelector";
 
 const ApplyForm = () => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<ApplyFormData>({
     resolver: zodResolver(formSchema),
@@ -46,32 +47,53 @@ const ApplyForm = () => {
   };
 
   async function onSubmit(values: ApplyFormData) {
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    
     try {
-      const { error } = await supabase
+      console.log("Submitting application with values:", values);
+      console.log("Selected skills:", selectedSkills);
+
+      const submissionData = {
+        full_name: values.fullName || '',
+        email: values.email || '',
+        phone_number: values.phoneNumber || '',
+        headline: values.headline || '',
+        skills: selectedSkills.join(', '),
+        selected_skills: selectedSkills,
+        bio: values.bio || '',
+      };
+
+      console.log("Submission data:", submissionData);
+
+      const { data, error } = await supabase
         .from('applicant_submissions')
-        .insert({
-          full_name: values.fullName || '',
-          email: values.email || '',
-          phone_number: values.phoneNumber,
-          headline: values.headline || '',
-          skills: selectedSkills.join(', '),
-          selected_skills: selectedSkills,
-          bio: values.bio || '',
-        });
+        .insert(submissionData)
+        .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
 
-      console.log("Professional Application Submitted:", values);
+      console.log("Application submitted successfully:", data);
+      
       toast.success("Application Submitted Successfully!", {
         description: "Welcome to the CareLink professional community. Our team will review your application and contact you within 24-48 hours.",
       });
+      
+      // Reset form and selected skills
       form.reset();
       setSelectedSkills([]);
+      
     } catch (error) {
       console.error("Error submitting application:", error);
       toast.error("Application submission failed", {
         description: "Please try again or contact our support team.",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -163,9 +185,14 @@ const ApplyForm = () => {
           )}
         />
         
-        <Button type="submit" className="w-full hover-scale bg-primary hover:bg-primary/90 text-white" size="lg">
+        <Button 
+          type="submit" 
+          className="w-full hover-scale bg-primary hover:bg-primary/90 text-white" 
+          size="lg"
+          disabled={isSubmitting}
+        >
           <Briefcase className="mr-2 h-5 w-5" />
-          Submit Professional Application
+          {isSubmitting ? "Submitting..." : "Submit Professional Application"}
         </Button>
         
         <p className="text-xs text-center text-muted-foreground">

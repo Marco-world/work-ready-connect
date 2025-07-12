@@ -9,18 +9,16 @@ const Header = () => {
   const isApplicantFlow = location.pathname === "/apply";
   const isClientFlow = location.pathname === "/talent";
 
-  // Different nav links based on user flow
+  // Simplified nav links - exclude current page from navigation
   const getNavLinks = () => {
     if (isApplicantFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/apply", label: "Household worker Application" },
       ];
     }
     if (isClientFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/talent", label: "Browse Household workers" },
       ];
     }
     return [
@@ -42,30 +40,10 @@ const Header = () => {
     return "bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-primary/10";
   };
 
+  // Simplified action buttons - only show cross-portal navigation when needed
   const getActionButtons = () => {
-    if (isApplicantFlow) {
-      return (
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="outline" asChild className="hover-scale border-primary text-primary hover:bg-primary/10">
-            <Link to="/">
-              <Users className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
-          </Button>
-        </div>
-      );
-    }
-    if (isClientFlow) {
-      return (
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="outline" asChild className="hover-scale border-emerald-600 text-emerald-600 hover:bg-emerald-50">
-            <Link to="/">
-              <Heart className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
-          </Button>
-        </div>
-      );
+    if (isApplicantFlow || isClientFlow) {
+      return null; // No additional action buttons needed in portals
     }
     return (
       <div className="hidden md:flex items-center gap-4">
@@ -85,30 +63,10 @@ const Header = () => {
     );
   };
 
+  // Simplified mobile buttons - no duplicates
   const getMobileButtons = () => {
-    if (isApplicantFlow) {
-      return (
-        <div className="flex flex-col gap-4">
-          <Button variant="outline" asChild>
-            <Link to="/">
-              <Users className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
-          </Button>
-        </div>
-      );
-    }
-    if (isClientFlow) {
-      return (
-        <div className="flex flex-col gap-4">
-          <Button variant="outline" asChild>
-            <Link to="/">
-              <Heart className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
-          </Button>
-        </div>
-      );
+    if (isApplicantFlow || isClientFlow) {
+      return null; // No additional mobile buttons needed in portals
     }
     return (
       <div className="flex flex-col gap-4">
