@@ -9,18 +9,16 @@ const Header = () => {
   const isApplicantFlow = location.pathname === "/apply";
   const isClientFlow = location.pathname === "/talent";
 
-  // Different nav links based on user flow
+  // Simplified nav links - exclude current page from navigation
   const getNavLinks = () => {
     if (isApplicantFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/apply", label: "Professional Application" },
       ];
     }
     if (isClientFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/talent", label: "Browse Professionals" },
       ];
     }
     return [
@@ -42,17 +40,10 @@ const Header = () => {
     return "bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-primary/10";
   };
 
+  // Simplified action buttons - only show cross-portal navigation when needed
   const getActionButtons = () => {
     if (isApplicantFlow || isClientFlow) {
-      return (
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="outline" asChild className="hover-scale">
-            <Link to="/">
-              Back to Home
-            </Link>
-          </Button>
-        </div>
-      );
+      return null; // No additional action buttons needed in portals
     }
     return (
       <div className="hidden md:flex items-center gap-4">
@@ -72,15 +63,10 @@ const Header = () => {
     );
   };
 
+  // Simplified mobile buttons - no duplicates
   const getMobileButtons = () => {
     if (isApplicantFlow || isClientFlow) {
-      return (
-        <div className="flex flex-col gap-4">
-          <Button variant="outline" asChild>
-            <Link to="/">Back to Home</Link>
-          </Button>
-        </div>
-      );
+      return null; // No additional mobile buttons needed in portals
     }
     return (
       <div className="flex flex-col gap-4">
