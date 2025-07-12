@@ -14,13 +14,13 @@ const Header = () => {
     if (isApplicantFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/apply", label: "Household worker Application" },
+        { to: "/apply", label: "Professional Application" },
       ];
     }
     if (isClientFlow) {
       return [
         { to: "/", label: "Home" },
-        { to: "/talent", label: "Browse Household workers" },
+        { to: "/talent", label: "Browse Professionals" },
       ];
     }
     return [
@@ -43,24 +43,11 @@ const Header = () => {
   };
 
   const getActionButtons = () => {
-    if (isApplicantFlow) {
+    if (isApplicantFlow || isClientFlow) {
       return (
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="outline" asChild className="hover-scale border-primary text-primary hover:bg-primary/10">
+          <Button variant="outline" asChild className="hover-scale">
             <Link to="/">
-              <Users className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
-          </Button>
-        </div>
-      );
-    }
-    if (isClientFlow) {
-      return (
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="outline" asChild className="hover-scale border-emerald-600 text-emerald-600 hover:bg-emerald-50">
-            <Link to="/">
-              <Heart className="mr-2 h-4 w-4" />
               Back to Home
             </Link>
           </Button>
@@ -86,26 +73,11 @@ const Header = () => {
   };
 
   const getMobileButtons = () => {
-    if (isApplicantFlow) {
+    if (isApplicantFlow || isClientFlow) {
       return (
         <div className="flex flex-col gap-4">
           <Button variant="outline" asChild>
-            <Link to="/">
-              <Users className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
-          </Button>
-        </div>
-      );
-    }
-    if (isClientFlow) {
-      return (
-        <div className="flex flex-col gap-4">
-          <Button variant="outline" asChild>
-            <Link to="/">
-              <Heart className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
+            <Link to="/">Back to Home</Link>
           </Button>
         </div>
       );

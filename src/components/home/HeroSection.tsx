@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <>
       <section className="relative py-20 md:py-32 text-center overflow-hidden">
-        {/* Background Image - Updated to be more relevant to caregiving theme */}
+        {/* Background Image */}
         <div 
           className="absolute inset-0 z-0"
           style={{
@@ -25,49 +25,45 @@ const HeroSection = () => {
         <div className="container relative z-10">
           <div className="animate-fade-in">
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg mb-6">
-              Connecting Hearts, Homes & Healthcare
+              Connecting Trusted Professionals and Loving Families
             </h1>
             <p className="mt-4 max-w-3xl mx-auto text-xl text-white/95 leading-relaxed drop-shadow mb-12">
-              Whether you need compassionate care for your family or want to build a rewarding career in caregiving, 
-              CareLink brings together trusted professionals and loving families.
+              Find verified, compassionate household workers for your family, or build a rewarding career 
+              in caregiving with premium families who value your expertise.
             </p>
             
-            {/* Two distinct user paths */}
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Glassmorphism CTAs */}
+            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               {/* For Families */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 text-left">
-                <div className="flex items-center gap-3 mb-4">
-                  <Heart className="h-8 w-8 text-emerald-600" />
-                  <h3 className="text-2xl font-bold text-emerald-900">For Families</h3>
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/15 transition-all duration-300">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <Heart className="h-8 w-8 text-emerald-400" />
+                    <h3 className="text-xl font-bold text-white">For Families</h3>
+                  </div>
+                  <Button size="lg" asChild className="w-full bg-emerald-600/80 hover:bg-emerald-600 text-white border-0 backdrop-blur-sm">
+                    <Link to="/talent">
+                      Find Care for Your Family
+                    </Link>
+                  </Button>
                 </div>
-                <p className="text-emerald-800 mb-6">
-                  Find verified, compassionate Household workers who will treat your loved ones like family. 
-                  From childcare to senior support, we have trusted professionals ready to help.
-                </p>
-                <Button size="lg" asChild className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
-                  <Link to="/talent">
-                    <Heart className="mr-2 h-5 w-5" />
-                    Find Care for Your Family
-                  </Link>
-                </Button>
               </div>
               
               {/* For Professionals */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 text-left">
-                <div className="flex items-center gap-3 mb-4">
-                  <Briefcase className="h-8 w-8 text-primary" />
-                  <h3 className="text-2xl font-bold text-primary">For Household workers</h3>
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/30 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/15 transition-all duration-300">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <Briefcase className="h-8 w-8 text-blue-400" />
+                    <h3 className="text-xl font-bold text-white">For Professionals</h3>
+                  </div>
+                  <Button size="lg" asChild className="w-full bg-primary/80 hover:bg-primary text-white border-0 backdrop-blur-sm">
+                    <Link to="/apply">
+                      Start Your Career Journey
+                    </Link>
+                  </Button>
                 </div>
-                <p className="text-black mb-6">
-                  Join our professional network and build a meaningful career in caregiving. 
-                  Work with premium families who value your expertise and dedication.
-                </p>
-                <Button size="lg" asChild className="w-full bg-primary hover:bg-primary/90">
-                  <Link to="/apply">
-                    <Briefcase className="mr-2 h-5 w-5" />
-                    Start Your Career Journey
-                  </Link>
-                </Button>
               </div>
             </div>
           </div>
