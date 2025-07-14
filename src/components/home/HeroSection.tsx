@@ -25,7 +25,7 @@ const HeroSection = () => {
         <div className="container relative z-10">
           <div className="animate-fade-in">
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg mb-6">
-              Connecting Trusted Professionals and Loving Families
+              Connecting Trusted Household Workers and Loving Families
             </h1>
             <p className="mt-4 max-w-3xl mx-auto text-xl text-white/95 leading-relaxed drop-shadow mb-12">
               Find verified, compassionate household workers for your family, or build a rewarding career 
@@ -50,13 +50,13 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              {/* For Professionals */}
+              {/* For Household Workers */}
               <div className="group relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/30 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
                 <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/15 transition-all duration-300">
                   <div className="flex items-center justify-center gap-3 mb-4">
                     <Briefcase className="h-8 w-8 text-blue-400" />
-                    <h3 className="text-xl font-bold text-white">For Professionals</h3>
+                    <h3 className="text-xl font-bold text-white">For Household Workers</h3>
                   </div>
                   <Button size="lg" asChild className="w-full bg-primary/80 hover:bg-primary text-white border-0 backdrop-blur-sm">
                     <Link to="/apply">

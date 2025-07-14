@@ -56,7 +56,7 @@ const ProfessionalsCarousel = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-lg text-emerald-600">Loading professionals...</div>
+        <div className="text-lg text-emerald-600">Loading household workers...</div>
       </div>
     );
   }
@@ -64,7 +64,7 @@ const ProfessionalsCarousel = () => {
   if (caregivers.length === 0) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-lg text-gray-500">No professionals available</div>
+        <div className="text-lg text-gray-500">No household workers available</div>
       </div>
     );
   }
