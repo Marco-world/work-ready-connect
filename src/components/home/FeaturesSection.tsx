@@ -1,3 +1,4 @@
+
 import { Shield, Heart, Users } from "lucide-react";
 
 const FeaturesSection = () => {
@@ -11,7 +12,7 @@ const FeaturesSection = () => {
               Trusted by Families Worldwide
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A global network of care — connecting households with reliable, compassionate Household workers.
+              A global network of care — connecting households with reliable, compassionate household workers.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
@@ -36,7 +37,7 @@ const FeaturesSection = () => {
                 1000+
               </div>
               <p className="text-base md:text-lg text-muted-foreground font-medium">
-                Trusted Household workers
+                Trusted Household Workers
               </p>
             </div>
           </div>
@@ -58,7 +59,7 @@ const FeaturesSection = () => {
             </div>
             <h4 className="text-lg font-semibold text-emerald-900">Verified & Trusted</h4>
             <p className="mt-2 text-muted-foreground text-sm">
-              Every Household worker is background-checked and reference-verified for your peace of mind.
+              Every household worker is background-checked and reference-verified for your peace of mind.
             </p>
           </div>
           <div className="p-4 hover-scale">
@@ -67,7 +68,7 @@ const FeaturesSection = () => {
             </div>
             <h4 className="text-lg font-semibold text-emerald-900">Compassionate Care</h4>
             <p className="mt-2 text-muted-foreground text-sm">
-              We select Household workers for their skills and their genuine empathy and kindness.
+              We select household workers for their skills and their genuine empathy and kindness.
             </p>
           </div>
           <div className="p-4 hover-scale">
@@ -76,7 +77,7 @@ const FeaturesSection = () => {
             </div>
             <h4 className="text-lg font-semibold text-emerald-900">Perfect Matches</h4>
             <p className="mt-2 text-muted-foreground text-sm">
-              We match you with Household workers based on your unique needs and preferences.
+              We match you with household workers based on your unique needs and preferences.
             </p>
           </div>
         </div>

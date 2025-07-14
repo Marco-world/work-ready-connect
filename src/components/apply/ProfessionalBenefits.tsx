@@ -12,7 +12,7 @@ const ProfessionalBenefits = () => {
       <div className="p-4 bg-primary/5 rounded-lg">
         <Award className="h-6 w-6 text-primary mx-auto mb-2" />
         <h4 className="font-semibold text-sm">Career Growth</h4>
-        <p className="text-xs text-muted-foreground">Professional development</p>
+        <p className="text-xs text-muted-foreground">Household worker development</p>
       </div>
       <div className="p-4 bg-primary/5 rounded-lg">
         <Briefcase className="h-6 w-6 text-primary mx-auto mb-2" />
