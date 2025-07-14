@@ -23,6 +23,7 @@ export type Database = {
           headline: string
           id: string
           notes: string | null
+          phone_number: string | null
           portfolio_url: string | null
           selected_skills: string[] | null
           skills: string
@@ -37,6 +38,7 @@ export type Database = {
           headline: string
           id?: string
           notes?: string | null
+          phone_number?: string | null
           portfolio_url?: string | null
           selected_skills?: string[] | null
           skills: string
@@ -51,6 +53,7 @@ export type Database = {
           headline?: string
           id?: string
           notes?: string | null
+          phone_number?: string | null
           portfolio_url?: string | null
           selected_skills?: string[] | null
           skills?: string
