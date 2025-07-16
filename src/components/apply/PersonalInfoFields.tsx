@@ -17,7 +17,7 @@ const PersonalInfoFields = ({ control }: PersonalInfoFieldsProps) => {
         name="fullName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-primary font-semibold">Professional Name</FormLabel>
+            <FormLabel className="text-primary font-semibold">Full Name *</FormLabel>
             <FormControl>
               <Input placeholder="e.g. Maria Rodriguez, RN" className="border-primary/20 focus:border-primary" {...field} />
             </FormControl>
@@ -32,7 +32,7 @@ const PersonalInfoFields = ({ control }: PersonalInfoFieldsProps) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-primary font-semibold">Email Address</FormLabel>
+              <FormLabel className="text-primary font-semibold">Email Address (Optional)</FormLabel>
               <FormControl>
                 <Input placeholder="your.email@example.com" className="border-primary/20 focus:border-primary" {...field} />
               </FormControl>
@@ -46,9 +46,9 @@ const PersonalInfoFields = ({ control }: PersonalInfoFieldsProps) => {
           name="phoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-primary font-semibold flex items-center gap-1">
+               <FormLabel className="text-primary font-semibold flex items-center gap-1">
                 <Phone className="h-4 w-4" />
-                Phone Number
+                Phone Number *
               </FormLabel>
               <FormControl>
                 <Input placeholder="+1 (555) 123-4567" className="border-primary/20 focus:border-primary" {...field} />

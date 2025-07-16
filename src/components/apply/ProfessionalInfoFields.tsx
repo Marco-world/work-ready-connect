@@ -17,7 +17,7 @@ const ProfessionalInfoFields = ({ control }: ProfessionalInfoFieldsProps) => {
         name="headline"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-primary font-semibold">Household Worker Title & Credentials</FormLabel>
+            <FormLabel className="text-primary font-semibold">Household Worker Title & Credentials (Optional)</FormLabel>
             <FormControl>
               <Input placeholder="e.g. Certified Registered Nurse, Licensed Childcare Provider" className="border-primary/20 focus:border-primary" {...field} />
             </FormControl>
@@ -31,7 +31,7 @@ const ProfessionalInfoFields = ({ control }: ProfessionalInfoFieldsProps) => {
         name="bio"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-primary font-semibold">Household Worker Philosophy & Experience</FormLabel>
+            <FormLabel className="text-primary font-semibold">Household Worker Philosophy & Experience (Optional)</FormLabel>
             <FormControl>
               <Textarea
                 placeholder="Share your household worker approach to caregiving, years of experience, and what motivates you to excel in healthcare..."

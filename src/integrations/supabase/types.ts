@@ -16,47 +16,50 @@ export type Database = {
     Tables: {
       applicant_submissions: {
         Row: {
-          bio: string
+          bio: string | null
           created_at: string | null
-          email: string
+          email: string | null
           full_name: string
-          headline: string
+          headline: string | null
           id: string
+          language: string | null
           notes: string | null
           phone_number: string | null
           portfolio_url: string | null
           selected_skills: string[] | null
-          skills: string
+          skills: string | null
           status: string | null
           updated_at: string | null
         }
         Insert: {
-          bio: string
+          bio?: string | null
           created_at?: string | null
-          email: string
+          email?: string | null
           full_name: string
-          headline: string
+          headline?: string | null
           id?: string
+          language?: string | null
           notes?: string | null
           phone_number?: string | null
           portfolio_url?: string | null
           selected_skills?: string[] | null
-          skills: string
+          skills?: string | null
           status?: string | null
           updated_at?: string | null
         }
         Update: {
-          bio?: string
+          bio?: string | null
           created_at?: string | null
-          email?: string
+          email?: string | null
           full_name?: string
-          headline?: string
+          headline?: string | null
           id?: string
+          language?: string | null
           notes?: string | null
           phone_number?: string | null
           portfolio_url?: string | null
           selected_skills?: string[] | null
-          skills?: string
+          skills?: string | null
           status?: string | null
           updated_at?: string | null
         }

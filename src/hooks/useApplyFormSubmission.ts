@@ -19,12 +19,13 @@ export const useApplyFormSubmission = () => {
       // Prepare submission data with correct field mapping
       const submissionData = {
         full_name: values.fullName,
-        email: values.email,
+        email: values.email || null,
         phone_number: values.phoneNumber,
-        headline: values.headline,
+        headline: values.headline || null,
         skills: selectedSkills.join(', '), // Legacy field for backward compatibility
         selected_skills: selectedSkills, // Array field for structured data
-        bio: values.bio,
+        bio: values.bio || null,
+        language: values.language || null,
       };
 
       console.log("Prepared submission data:", submissionData);
@@ -42,7 +43,7 @@ export const useApplyFormSubmission = () => {
       console.log("Application submitted successfully:", data);
       
       toast.success("Application Submitted Successfully!", {
-        description: "Welcome to the CareLink professional community. Our team will review your application and contact you within 24-48 hours.",
+        description: "Welcome to the CareLink household worker community. Our team will review your application and contact you within 24-48 hours to discuss opportunities.",
       });
       
       return { success: true };

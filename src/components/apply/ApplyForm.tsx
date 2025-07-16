@@ -8,6 +8,7 @@ import { useApplyFormSubmission } from "@/hooks/useApplyFormSubmission";
 import PersonalInfoFields from "./PersonalInfoFields";
 import ProfessionalInfoFields from "./ProfessionalInfoFields";
 import SkillsSelector from "./SkillsSelector";
+import LanguageSelector from "./LanguageSelector";
 import SubmitButton from "./SubmitButton";
 
 const ApplyForm = () => {
@@ -23,6 +24,7 @@ const ApplyForm = () => {
       headline: "",
       selectedSkills: [],
       bio: "",
+      language: "",
     },
   });
 
@@ -57,6 +59,7 @@ const ApplyForm = () => {
           selectedSkills={selectedSkills}
           onSkillChange={handleSkillChange}
         />
+        <LanguageSelector control={form.control} />
         <SubmitButton isSubmitting={isSubmitting} />
       </form>
     </Form>
