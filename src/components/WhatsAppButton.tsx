@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const WhatsAppButton = () => {
   const whatsappNumber = "+1234567890"; // Replace with your actual WhatsApp number
   const message = encodeURIComponent("Hi! I'm interested in your care services. Can you help me?");
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+  const whatsappUrl = `https://wa.me/+639533979972?text=Hello Carelink`;
 
   return (
     <Button

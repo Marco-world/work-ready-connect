@@ -11,7 +11,7 @@ const ContactActions = ({ candidate }: ContactActionsProps) => {
   const handleWhatsAppContact = () => {
     const whatsappNumber = "+1234567890"; // Replace with your actual WhatsApp number
     const message = encodeURIComponent(`Hi! I'm interested in connecting with ${candidate.name} for care services. Can you help me get in touch?`);
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+    const whatsappUrl = `https://wa.me/+639533979972?text=Hello Carelink`;
     window.open(whatsappUrl, '_blank');
   };
 

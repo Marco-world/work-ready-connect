@@ -5,7 +5,7 @@ import { MessageCircle, Phone, Mail } from "lucide-react";
 const BottomCTASection = () => {
   const whatsappNumber = "+1234567890"; // Replace with your actual WhatsApp number
   const message = encodeURIComponent("Hi! I'm interested in your care services. Can you help me?");
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+  const whatsappUrl = `https://wa.me/+639533979972?text=Hello Carelink`;
 
   return (
     <section className="bg-gradient-to-r from-primary to-emerald-600 py-16">
