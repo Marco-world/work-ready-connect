@@ -1,18 +1,17 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { useState } from "react";
 import { formSchema, ApplyFormData } from "@/types/apply";
-import { useApplyFormSubmission } from "@/hooks/useApplyFormSubmission";
-import PersonalInfoFields from "./PersonalInfoFields";
-import ProfessionalInfoFields from "./ProfessionalInfoFields";
-import SkillsSelector from "./SkillsSelector";
-import SubmitButton from "./SubmitButton";
+import { useApplyFormSubmissionTagalog } from "@/hooks/useApplyFormSubmissionTagalog";
+import PersonalInfoFieldsTagalog from "./PersonalInfoFieldsTagalog";
+import ProfessionalInfoFieldsTagalog from "./ProfessionalInfoFieldsTagalog";
+import SkillsSelectorTagalog from "./SkillsSelectorTagalog";
+import SubmitButtonTagalog from "./SubmitButtonTagalog";
 
-const ApplyForm = () => {
+const ApplyFormTagalog = () => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const { submitApplication, isSubmitting } = useApplyFormSubmission();
+  const { submitApplication, isSubmitting } = useApplyFormSubmissionTagalog();
 
   const form = useForm<ApplyFormData>({
     resolver: zodResolver(formSchema),
@@ -50,17 +49,17 @@ const ApplyForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <PersonalInfoFields control={form.control} />
-        <ProfessionalInfoFields control={form.control} />
-        <SkillsSelector
+        <PersonalInfoFieldsTagalog control={form.control} />
+        <ProfessionalInfoFieldsTagalog control={form.control} />
+        <SkillsSelectorTagalog
           control={form.control}
           selectedSkills={selectedSkills}
           onSkillChange={handleSkillChange}
         />
-        <SubmitButton isSubmitting={isSubmitting} />
+        <SubmitButtonTagalog isSubmitting={isSubmitting} />
       </form>
     </Form>
   );
 };
 
-export default ApplyForm;
+export default ApplyFormTagalog;

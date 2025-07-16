@@ -8,7 +8,6 @@ export const formSchema = z.object({
   headline: z.string().optional().or(z.literal("")),
   selectedSkills: z.array(z.string()).min(1, "Please select at least one skill"),
   bio: z.string().optional().or(z.literal("")),
-  language: z.string().optional().or(z.literal("")),
 });
 
 export type ApplyFormData = z.infer<typeof formSchema>;

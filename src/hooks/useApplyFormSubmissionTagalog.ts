@@ -1,10 +1,9 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ApplyFormData } from "@/types/apply";
 
-export const useApplyFormSubmission = () => {
+export const useApplyFormSubmissionTagalog = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submitApplication = async (values: ApplyFormData, selectedSkills: string[]) => {
@@ -13,8 +12,8 @@ export const useApplyFormSubmission = () => {
     setIsSubmitting(true);
     
     try {
-      console.log("Submitting application with values:", values);
-      console.log("Selected skills:", selectedSkills);
+      console.log("Nagsusumite ng aplikasyon:", values);
+      console.log("Mga napiling kasanayan:", selectedSkills);
 
       // Prepare submission data with correct field mapping
       const submissionData = {
@@ -39,18 +38,18 @@ export const useApplyFormSubmission = () => {
         throw error;
       }
 
-      console.log("Application submitted successfully:", data);
+      console.log("Aplikasyon ay naisumite na:", data);
       
-      toast.success("Application Submitted Successfully!", {
-        description: "Welcome to the CareLink household worker community. Our team will review your application and contact you within 24-48 hours to discuss opportunities.",
+      toast.success("Matagumpay na Naisumite ang Aplikasyon!", {
+        description: "Maligayang pagdating sa CareLink household worker community. Susuriin ng aming team ang inyong aplikasyon at makikipag-ugnayan sa inyo sa loob ng 24-48 oras upang talakayin ang mga oportunidad.",
       });
       
       return { success: true };
       
     } catch (error) {
-      console.error("Error submitting application:", error);
-      toast.error("Application submission failed", {
-        description: "Please try again or contact our support team if the problem persists.",
+      console.error("Error sa pagsusumite ng aplikasyon:", error);
+      toast.error("Hindi naisumite ang aplikasyon", {
+        description: "Pakisubukan ulit o makipag-ugnayan sa aming support team kung patuloy ang problema.",
       });
       return { success: false };
     } finally {
