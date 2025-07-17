@@ -126,13 +126,11 @@ const ClientContactForm = () => {
 
       if (error) throw error;
 
-      console.log("Client Contact Request:", values);
       toast.success("Contact Request Received!", {
         description: "Thank you for your interest. We'll connect you with the right Household worker soon.",
       });
       form.reset();
     } catch (error) {
-      console.error("Error submitting contact request:", error);
       toast.error("Failed to submit request", {
         description: "Please try again later.",
       });

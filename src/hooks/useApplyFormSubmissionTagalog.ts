@@ -12,9 +12,6 @@ export const useApplyFormSubmissionTagalog = () => {
     setIsSubmitting(true);
     
     try {
-      console.log("Nagsusumite ng aplikasyon:", values);
-      console.log("Mga napiling kasanayan:", selectedSkills);
-
       // Prepare submission data with correct field mapping
       const submissionData = {
         full_name: values.fullName,
@@ -26,19 +23,14 @@ export const useApplyFormSubmissionTagalog = () => {
         bio: values.bio || null,
       };
 
-      console.log("Prepared submission data:", submissionData);
-
       const { data, error } = await supabase
         .from('applicant_submissions')
         .insert(submissionData)
         .select();
 
       if (error) {
-        console.error("Supabase submission error:", error);
         throw error;
       }
-
-      console.log("Aplikasyon ay naisumite na:", data);
       
       toast.success("Matagumpay na Naisumite ang Aplikasyon!", {
         description: "Maligayang pagdating sa CareLink household worker community. Susuriin ng aming team ang inyong aplikasyon at makikipag-ugnayan sa inyo sa loob ng 24-48 oras upang talakayin ang mga oportunidad.",
@@ -47,7 +39,6 @@ export const useApplyFormSubmissionTagalog = () => {
       return { success: true };
       
     } catch (error) {
-      console.error("Error sa pagsusumite ng aplikasyon:", error);
       toast.error("Hindi naisumite ang aplikasyon", {
         description: "Pakisubukan ulit o makipag-ugnayan sa aming support team kung patuloy ang problema.",
       });

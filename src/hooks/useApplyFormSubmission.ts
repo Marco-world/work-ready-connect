@@ -13,9 +13,6 @@ export const useApplyFormSubmission = () => {
     setIsSubmitting(true);
     
     try {
-      console.log("Submitting application with values:", values);
-      console.log("Selected skills:", selectedSkills);
-
       // Prepare submission data with correct field mapping
       const submissionData = {
         full_name: values.fullName,
@@ -27,19 +24,14 @@ export const useApplyFormSubmission = () => {
         bio: values.bio || null,
       };
 
-      console.log("Prepared submission data:", submissionData);
-
       const { data, error } = await supabase
         .from('applicant_submissions')
         .insert(submissionData)
         .select();
 
       if (error) {
-        console.error("Supabase submission error:", error);
         throw error;
       }
-
-      console.log("Application submitted successfully:", data);
       
       toast.success("Application Submitted Successfully!", {
         description: "Welcome to the CareLink household worker community. Our team will review your application and contact you within 24-48 hours to discuss opportunities.",
@@ -48,7 +40,6 @@ export const useApplyFormSubmission = () => {
       return { success: true };
       
     } catch (error) {
-      console.error("Error submitting application:", error);
       toast.error("Application submission failed", {
         description: "Please try again or contact our support team if the problem persists.",
       });

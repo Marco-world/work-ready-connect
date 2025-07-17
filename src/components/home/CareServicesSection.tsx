@@ -56,7 +56,6 @@ const CareServicesSection = () => {
   }
 
   if (error) {
-    console.error('Error fetching care services:', error);
     return (
       <section className="bg-gradient-to-r from-emerald-50/50 to-emerald-100/30 py-12">
         <div className="container">
